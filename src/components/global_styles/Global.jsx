@@ -11,8 +11,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body, html {
-    margin: 0;
-    padding: 0;
     height: 100%;
     width: 100%;
     scroll-behavior: smooth;
@@ -39,7 +37,7 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 400;
   }
 
-  img, picture, svg, video, canvas {
+  img, picture, svg, video, canvas object {
     max-width: 100%;
     height: auto;
     vertical-align: middle;
@@ -49,6 +47,8 @@ export const GlobalStyle = createGlobalStyle`
 
   input, button, textarea, select {
     font: inherit;
+    border: none;
+    outline: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -57,9 +57,9 @@ export const GlobalStyle = createGlobalStyle`
     }
     
     *, *::before, *::after {
-      animation-duration: 0.01ms;
+      animation-duration: 0s;
       animation-iteration-count: 1;
-      transition-duration: 0.01ms;
+      transition-duration: 0s;
       scroll-behavior: auto;
       transition: none;
     }
@@ -70,5 +70,11 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Inter', sans-serif;
     color: ${({ theme }) => theme.colors.darkText};
     background-color: ${({ theme }) => theme.colors.primaryLightBackground};
+  }
+
+  #root {
+    min-height: 100vh;
+    min-width: 100vw;
+    overflow-x: hidden;
   }
 `;

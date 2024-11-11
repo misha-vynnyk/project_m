@@ -13,7 +13,6 @@ export const SidebarContainer = styled.div`
   z-index: 99;
   padding: 2rem 1rem;
   width: 16rem;
-  height: 100vh;
   background-color: ${({ theme }) => theme.colors.secondaryLightBackground};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease-in-out;
@@ -24,8 +23,6 @@ export const SidebarContainer = styled.div`
 export const StyledSidebar = styled.aside`
   display: flex;
   flex-direction: column;
-  padding-bottom: 2rem;
-  border-bottom: ${({ theme }) => theme.colors.borderLineColor};
 `;
 
 export const Logo = styled.div`

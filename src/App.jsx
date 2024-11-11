@@ -18,11 +18,12 @@ const theme = {
     secondaryLightBackground: "#FFFFFF",
     primaryDarkBackground: "#0D062D",
     secondaryDarkBackground: "#141416",
+    hoverBackground: "rgba(80, 48, 229, 0.08)",
 
     borderLineColor: "1px solid rgb(219, 219, 219)",
 
     darkText: "#0D062D",
-    lightText: "#7A7A7A",
+    lightText: "#787486",
   },
 };
 

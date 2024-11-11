@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const MenuContainer = styled.div`
-  padding-left: 1rem;
+  padding: 0 0 2rem 1rem;
+  border-bottom: ${({ theme }) => theme.colors.borderLineColor};
 `;
 
 export const ListMenu = styled.ul`
