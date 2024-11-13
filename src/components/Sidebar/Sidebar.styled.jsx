@@ -9,15 +9,22 @@ export const SidebarTopWrapper = styled.div`
 `;
 
 export const SidebarContainer = styled.div`
+  overflow: auto;
+  position: fixed;
   border-right: ${({ theme }) => theme.colors.borderLineColor};
-  z-index: 99;
   padding: 2rem 1rem;
   width: 16rem;
-  background-color: ${({ theme }) => theme.colors.secondaryLightBackground};
+  height: 100vh;
+  background-color: ${({ theme }) => theme.colors.primaryLightBackground};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease-in-out;
   transform: ${({ $isSidebarOpen }) =>
     $isSidebarOpen ? "translateX(0)" : "translateX(-100%)"};
+  transition: transform 0.3s ease-in-out;
+
+  @media (max-width: ${({ theme }) => theme.mobile}) {
+    transform: ${({ $isSidebarOpen }) =>
+      $isSidebarOpen ? "translateX(0)" : "translateX(-100)"};
+  }
 `;
 
 export const StyledSidebar = styled.aside`
@@ -29,7 +36,6 @@ export const Logo = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 100;
 
   span {
     margin-left: 1rem;
@@ -41,7 +47,6 @@ export const Logo = styled.div`
 `;
 
 export const SidebarOpener = styled.button`
-  z-index: 100;
   top: 0;
   right: 0;
   height: 88px;

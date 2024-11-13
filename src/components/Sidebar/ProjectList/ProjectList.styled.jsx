@@ -28,6 +28,7 @@ export const ProjectTopWrapper = styled.div`
 export const StyledProjectList = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 5.5rem;
 
   button {
     background: transparent;
