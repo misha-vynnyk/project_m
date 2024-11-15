@@ -14,7 +14,7 @@ export const useIsResponsive = (breakpoint) => {
 
     const debounceResize = () => {
       clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(handleResize, 50);
+      resizeTimeout = setTimeout(handleResize, 0);
     };
 
     window.addEventListener("resize", debounceResize);

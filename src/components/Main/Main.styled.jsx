@@ -1,13 +1,19 @@
 import styled from "styled-components";
 
 export const MainStyled = styled.main`
-  display: flex;
-  flex-direction: column;
-  margin-top: 5.5rem;
+  margin-top: ${({ theme }) => theme.headerSize.desktopHeight};
 
   section {
     padding: 2rem;
     background-color: ${({ theme }) => theme.colors.primaryBlackBackground};
+  }
+
+  @media (max-width: ${({ theme }) => theme.mobile}) {
+    margin-top: ${({ theme }) => theme.headerSize.mobileHeight};
+  }
+
+  @media (max-width: ${({ theme }) => theme.tablet}) {
+    margin-top: ${({ theme }) => theme.headerSize.tabletHeight};
   }
 `;
 

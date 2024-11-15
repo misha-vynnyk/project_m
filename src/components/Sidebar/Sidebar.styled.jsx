@@ -5,7 +5,10 @@ export const SidebarTopWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   min-width: 14rem;
-  border: 20px;
+
+  @media (max-width: ${({ theme }) => theme.mobile}) {
+    min-width: 10rem;
+  }
 `;
 
 export const SidebarContainer = styled.div`
@@ -39,10 +42,14 @@ export const Logo = styled.div`
 
   span {
     margin-left: 1rem;
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: 600;
     color: ${({ theme }) => theme.colors.darkText};
     font-family: ${({ theme }) => theme.fonts.primaryFont};
+
+    @media (max-width: ${({ theme }) => theme.mobile}) {
+      font-size: 1rem;
+    }
   }
 `;
 
@@ -60,6 +67,10 @@ export const SidebarOpener = styled.button`
     $isSidebarOpen ? "rotate(0deg)" : "rotate(180deg)"};
 
   transition: transform 0.3s ease-in-out;
+
+  @media (max-width: ${({ theme }) => theme.tablet}) {
+    border: none;
+  }
 
   img {
     width: 1.5rem;

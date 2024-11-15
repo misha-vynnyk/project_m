@@ -1,7 +1,13 @@
 export const theme = {
-  mobile: "768px",
-  tablet: "1280px",
-  desktop: "1440px",
+  mobile: "360px",
+  tablet: "768px",
+  desktop: "1280px",
+
+  headerSize: {
+    mobileHeight: "3rem",
+    tabletHeight: "4rem",
+    desktopHeight: "5.5rem",
+  },
 
   fonts: {
     primaryFont: "'Inter', sans-serif",

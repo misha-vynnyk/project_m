@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useIsResponsive } from "./useResponsive";
 
-export const useSidebar = (initialState = true) => {
+export const useSidebar = (initialState = false) => {
   // Check if the screen is mobile for controlling the Sidebar state
   const isMobile = useIsResponsive(768); // Track screen size less than or equal to 768px
 
