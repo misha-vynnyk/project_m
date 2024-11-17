@@ -4,20 +4,26 @@ export const SidebarTopWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 100%;
   min-width: 14rem;
 
+  @media (max-width: ${({ theme }) => theme.tablet}) {
+    min-width: 9.5rem;
+  }
+
   @media (max-width: ${({ theme }) => theme.mobile}) {
-    min-width: 10rem;
+    min-width: 8rem;
   }
 `;
 
 export const SidebarContainer = styled.div`
   overflow: auto;
   position: fixed;
-  border-right: ${({ theme }) => theme.colors.borderLineColor};
+  z-index: 100;
   padding: 2rem 1rem;
   width: 16rem;
   height: 100vh;
+  border-right: ${({ theme }) => theme.colors.borderLineColor};
   background-color: ${({ theme }) => theme.colors.primaryLightBackground};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transform: ${({ $isSidebarOpen }) =>
@@ -47,18 +53,19 @@ export const Logo = styled.div`
     color: ${({ theme }) => theme.colors.darkText};
     font-family: ${({ theme }) => theme.fonts.primaryFont};
 
-    @media (max-width: ${({ theme }) => theme.mobile}) {
+    @media (max-width: ${({ theme }) => theme.tablet}) {
       font-size: 1rem;
+    }
+
+    @media (max-width: ${({ theme }) => theme.mobile}) {
+      font-size: 0.8rem;
     }
   }
 `;
 
 export const SidebarOpener = styled.button`
-  top: 0;
-  right: 0;
   height: 88px;
   background: transparent;
-  border: none;
   cursor: pointer;
   border-right: ${({ $isSidebarOpen }) =>
     $isSidebarOpen ? "1px solid rgb(219, 219, 219)" : "none"};
@@ -70,6 +77,7 @@ export const SidebarOpener = styled.button`
 
   @media (max-width: ${({ theme }) => theme.tablet}) {
     border: none;
+    height: 100%;
   }
 
   img {

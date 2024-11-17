@@ -4,6 +4,7 @@ export const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   position: fixed;
+  z-index: 100;
   background-color: ${({ theme }) => theme.colors.primaryLightBackground};
   width: 100%;
   padding: 0 2rem;
@@ -29,4 +30,17 @@ export const HeaderMainWrapper = styled.div`
   margin-left: 3rem;
   width: 100%;
   height: 100%;
+
+  @media (max-width: ${({ theme }) => theme.desktop}) {
+    margin-left: 2rem;
+  }
+
+  @media (max-width: ${({ theme }) => theme.tablet}) {
+    margin-left: 1rem;
+  }
+
+  @media (max-width: ${({ theme }) => theme.mobileL}) {
+    margin-left: 0.5rem;
+    justify-content: end;
+  }
 `;

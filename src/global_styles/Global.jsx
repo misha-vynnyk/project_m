@@ -70,6 +70,11 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Inter', sans-serif;
     color: ${({ theme }) => theme.colors.darkText};
     background-color: ${({ theme }) => theme.colors.primaryLightBackground};
+
+  @media (max-width: ${({ theme }) => theme.mobile}) {
+    overflow-y: ${({ $isSidebarOpen }) =>
+      $isSidebarOpen ? "hidden" : ""};
+  }
   }
 
   #root {

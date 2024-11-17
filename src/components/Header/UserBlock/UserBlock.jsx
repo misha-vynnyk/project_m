@@ -43,26 +43,29 @@ const userInfo = [
 
 export const UserBlock = () => {
   return (
-    <UserBlockContainer>
-      <UserMenu>
-        {userMenu.map(({ id, name, icon, ariaLabel }) => (
-          <UserMenuButton aria-label={ariaLabel} key={id}>
-            <UserMenuButtonIcon src={icon} alt={name} />
+    <UserBlockContainer role="region" aria-label="User menu block">
+      <UserMenu aria-label="User menu navigation">
+        {userMenu.map(({ id, icon, ariaLabel }) => (
+          <UserMenuButton aria-label={ariaLabel} key={id} aria-haspopup="true">
+            <UserMenuButtonIcon src={icon} alt="" />
           </UserMenuButton>
         ))}
       </UserMenu>
 
-      <UserInfo>
+      <UserInfo role="group" aria-label="User information">
         {userInfo.map(({ id, userName, country, avatar }) => (
           <>
-            <Wrapper key={id}>
-              <UserInfoName>{userName}</UserInfoName>
-              <UserInfoCountry>{country}</UserInfoCountry>
+            <Wrapper
+              key={id}
+              aria-labelledby={`user-name-${id} user-country-${id}`}
+            >
+              <UserInfoName id={`user-name-${id}`}>{userName}</UserInfoName>
+              <UserInfoCountry id={`user-country-${id}`}>{country}</UserInfoCountry>
             </Wrapper>
-            <UserInfoAvatar src={avatar} alt={userName} />
+            <UserInfoAvatar src={avatar} alt={userName} role="presentation" />
           </>
         ))}
-        <UserMenuOpener>
+        <UserMenuOpener aria-haspopup="true" aria-label="Open user menu">
           <UserMenuButtonIcon src="icon/arrow-down_icon.svg" alt="User" />
         </UserMenuOpener>
       </UserInfo>

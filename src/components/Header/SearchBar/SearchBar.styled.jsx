@@ -5,10 +5,24 @@ export const StyledSearchBar = styled.div`
   align-items: center;
   width: 100%;
   max-width: 30rem;
-  min-width: 8rem;
+  min-width: 6rem;
   height: 3rem;
+  margin-right: 2rem;
   background-color: ${({ theme }) => theme.colors.secondaryLightBackground};
   border-radius: 8px;
+
+  @media  (max-width: ${({ theme }) => theme.desktop}) {
+    height: 2.5rem;
+    margin-right: 1rem;
+  }
+
+  @media  (max-width: ${({ theme }) => theme.tablet}) {
+    height: 2rem;
+  }
+
+  @media  (max-width: ${({ theme }) => theme.mobileL}) {
+    display: none;
+  }
 `;
 
 export const SearchBarInput = styled.input`
@@ -26,10 +40,27 @@ export const SearchBarInput = styled.input`
   &::placeholder {
     color: ${({ theme }) => theme.colors.lightText};
   }
+
+  @media  (max-width: ${({ theme }) => theme.desktop}) {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
+  }
 `;
 
 export const StyledSearchBarIcon = styled.img`
   margin-left: 1rem;
   height: 1.5rem;
   width: 1.5rem;
+
+  @media (max-width: ${({ theme }) => theme.desktop}) {
+    margin-left: 0.5rem;
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+
+  @media (max-width: ${({ theme }) => theme.tablet}) {
+    margin-left: 0.3rem;
+    height: 1rem;
+    width: 1rem;
+  }
 `;

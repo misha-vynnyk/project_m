@@ -1,7 +1,8 @@
 export const theme = {
-  mobile: "360px",
+  mobile: "425px",
+  mobileL: "600px",
   tablet: "768px",
-  desktop: "1280px",
+  desktop: "1024px",
 
   headerSize: {
     mobileHeight: "3rem",

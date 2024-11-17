@@ -10,7 +10,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyle />
+      <GlobalStyle $isSidebarOpen={isSidebarOpen} />
       <Header 
         onToggleSidebar={toggleSidebar} 
         isSidebarOpen={isSidebarOpen}
@@ -19,6 +19,8 @@ const App = () => {
     </ThemeProvider>
   );
 };
+
+// Create responsive design for mobile, tablet, and desktop
 
 
 export default App;
