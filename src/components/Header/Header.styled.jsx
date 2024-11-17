@@ -2,10 +2,11 @@ import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
   display: flex;
+  align-items: center;
   position: fixed;
   background-color: ${({ theme }) => theme.colors.primaryLightBackground};
   width: 100%;
-  padding: 2rem;
+  padding: 0 2rem;
   height: ${({ theme }) => theme.headerSize.desktopHeight};
   border-bottom: ${({ theme }) => theme.colors.borderLineColor};
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
@@ -19,4 +20,13 @@ export const HeaderContainer = styled.header`
     padding: 1rem;
     height: ${({ theme }) => theme.headerSize.tabletHeight};
   }
+`;
+
+export const HeaderMainWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 3rem;
+  width: 100%;
+  height: 100%;
 `;

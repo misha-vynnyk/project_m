@@ -1,6 +1,12 @@
-import { Logo, SidebarOpener, SidebarTopWrapper } from "../Sidebar/Sidebar.styled";
-import { HeaderContainer } from "./Header.styled";
+import {
+  Logo,
+  SidebarOpener,
+  SidebarTopWrapper,
+} from "../Sidebar/Sidebar.styled";
+import { HeaderContainer, HeaderMainWrapper } from "./Header.styled";
 import PropTypes from "prop-types";
+import { SearchBar } from "./SearchBar/SearchBar";
+import { UserBlock } from "./UserBlock/UserBlock";
 
 const Header = ({ onToggleSidebar, isSidebarOpen }) => {
   return (
@@ -15,6 +21,11 @@ const Header = ({ onToggleSidebar, isSidebarOpen }) => {
           <img src="icon/arrow_left.svg" alt="Sidebar opener" />
         </SidebarOpener>
       </SidebarTopWrapper>
+
+      <HeaderMainWrapper>
+        <SearchBar />
+        <UserBlock />
+      </HeaderMainWrapper>
     </HeaderContainer>
   );
 };
@@ -25,5 +36,3 @@ Header.propTypes = {
 };
 
 export default Header;
-
-
