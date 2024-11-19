@@ -12,7 +12,7 @@ export const SidebarTopWrapper = styled.div`
   }
 
   @media (max-width: ${({ theme }) => theme.mobile}) {
-    min-width: 8rem;
+    min-width: 9rem;
   }
 `;
 

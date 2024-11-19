@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   UserBlockContainer,
   UserInfo,
@@ -8,7 +9,9 @@ import {
   UserMenuButton,
   UserMenuButtonIcon,
   UserMenuOpener,
+  UserMenuPupUp,
   Wrapper,
+  WrapperUserInfo,
 } from "./UserBlock.styled";
 
 const userMenu = [
@@ -42,6 +45,11 @@ const userInfo = [
 ];
 
 export const UserBlock = () => {
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+
+  const handleUserMenuOpen = () => {
+    setIsUserMenuOpen((prevState) => !prevState);
+  };
   return (
     <UserBlockContainer role="region" aria-label="User menu block">
       <UserMenu aria-label="User menu navigation">
@@ -54,21 +62,33 @@ export const UserBlock = () => {
 
       <UserInfo role="group" aria-label="User information">
         {userInfo.map(({ id, userName, country, avatar }) => (
-          <>
-            <Wrapper
-              key={id}
+          <Wrapper key={id} role="group" aria-label="User information">
+            <WrapperUserInfo
               aria-labelledby={`user-name-${id} user-country-${id}`}
             >
               <UserInfoName id={`user-name-${id}`}>{userName}</UserInfoName>
-              <UserInfoCountry id={`user-country-${id}`}>{country}</UserInfoCountry>
-            </Wrapper>
+              <UserInfoCountry id={`user-country-${id}`}>
+                {country}
+              </UserInfoCountry>
+            </WrapperUserInfo>
             <UserInfoAvatar src={avatar} alt={userName} role="presentation" />
-          </>
+          </Wrapper>
         ))}
-        <UserMenuOpener aria-haspopup="true" aria-label="Open user menu">
+        <UserMenuOpener
+          onClick={handleUserMenuOpen}
+          aria-haspopup="true"
+          aria-label="Open user menu"
+        >
           <UserMenuButtonIcon src="icon/arrow-down_icon.svg" alt="User" />
         </UserMenuOpener>
       </UserInfo>
+      {isUserMenuOpen && (
+        <Wrapper>
+          <UserMenuPupUp aria-label="User menu popup">
+
+          </UserMenuPupUp>
+        </Wrapper>
+      )}
     </UserBlockContainer>
   );
 };

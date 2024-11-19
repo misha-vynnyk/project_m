@@ -1,6 +1,11 @@
 import styled from "styled-components";
+import { StyledSearchBar } from "../SearchBar/SearchBar.styled";
 
 export const Wrapper = styled.div`
+  display: flex;
+`;
+
+export const WrapperUserInfo = styled.div`
   display: flex;
   align-items: end;
   flex-direction: column;
@@ -64,11 +69,11 @@ export const UserMenuButton = styled.button`
   }
 `;
 
-export const UserMenuButtonIcon = styled.img`
-`;
+export const UserMenuButtonIcon = styled.img``;
 
 export const UserInfo = styled.div`
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: space-between;
   height: 100%;
@@ -125,4 +130,20 @@ export const UserMenuOpener = styled.button`
 export const UserMenuOpenerIcon = styled.img`
   width: 1.5rem;
   height: 1.5rem;
+`;
+
+export const UserMenuPupUp = styled.div`
+  position: absolute;
+  top: 100%;
+  right: 3%;
+  width: 10rem;
+  height: 10rem;
+  background-color: ${({ theme }) => theme.colors.secondaryLightBackground};
+`;
+
+export const UserMenuPupUpSearchBar = styled(StyledSearchBar)`
+  margin: 0;
+  border-radius: 0;
+  padding: 0;
+  display: block;
 `;

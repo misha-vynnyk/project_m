@@ -20,7 +20,4 @@ const App = () => {
   );
 };
 
-// Create responsive design for mobile, tablet, and desktop
-
-
 export default App;
