@@ -4,11 +4,25 @@ import Sidebar from "../Sidebar/Sidebar";
 import {
   AddProjectButton,
   AddProjectButtonImg,
-  CardContainer,
+  CardStateContainer,
   CardState,
   MainContent,
   MainStyled,
   TitleCardState,
+  TitleStateWrapper,
+  CountProjectsInState,
+  ProjectsCard,
+  ProjectHeaderContainer,
+  ProjectDescriptionContainer,
+  ProjectTitle,
+  ProjectDescription,
+  ProjectMenu,
+  ProjectLevel,
+  ProjectFooterContainer,
+  ProjectFooterPeople,
+  ProjectFooterInfoContainer,
+  ProjectFooterComments,
+  ProjectFooterCountFiles,
 } from "./Main.styled";
 import PropTypes from "prop-types";
 import styled from "styled-components";
@@ -124,6 +138,20 @@ const ListCardState = [
   },
 ];
 
+const ListProjects = [
+  {
+    id: 1,
+    status: "To Do",
+    level: "low",
+    levelColor: "#D58D49",
+    levelBackgroundColor: "rgba(223, 168, 116, 0.2)",
+    title: "Brainstorming",
+    description:
+      "Brainstorming brings team members' diverse experience into play. ",
+    image: "",
+  },
+];
+
 const Main = ({ isSidebarOpen }) => {
   // const { posts, addPost, removePost } = useUserPosts([]);
 
@@ -131,11 +159,14 @@ const Main = ({ isSidebarOpen }) => {
     <MainStyled>
       <Sidebar isSidebarOpen={isSidebarOpen} />
       <MainContent $isSidebarOpen={isSidebarOpen}>
-        <CardContainer>
+        <CardStateContainer>
           {ListCardState.map((card) => (
             <CardState key={card.id} title={card.title}>
-              <TitleCardState $lineColor={card.lineColor}>
-                {card.title}
+              <TitleStateWrapper $lineColor={card.lineColor}>
+                <TitleCardState $lineColor={card.lineColor}>
+                  {card.title}
+                  <CountProjectsInState>10</CountProjectsInState>
+                </TitleCardState>
                 {card.id === 1 && (
                   <AddProjectButton
                     aria-haspopup="dialog"
@@ -148,10 +179,49 @@ const Main = ({ isSidebarOpen }) => {
                     />
                   </AddProjectButton>
                 )}
-              </TitleCardState>
+              </TitleStateWrapper>
+
+              {ListProjects.map((project) => (
+                <ProjectsCard key={project.id}>
+                  <ProjectHeaderContainer>
+                    <ProjectLevel
+                      $levelColor={project.levelColor}
+                      $levelBg={project.levelBackgroundColor}
+                    >
+                      {project.level}
+                    </ProjectLevel>
+                    <ProjectMenu>
+                      <img src="icon/dots_icon.svg" alt="Menu" />
+                    </ProjectMenu>
+                  </ProjectHeaderContainer>
+
+                  <ProjectDescriptionContainer>
+                    <ProjectTitle>{project.title}</ProjectTitle>
+                    <ProjectDescription>
+                      {project.description}
+                    </ProjectDescription>
+                  </ProjectDescriptionContainer>
+
+                  <ProjectFooterContainer>
+                    <ProjectFooterPeople>
+                      <img src="image/Group 633.png" alt="Persons" />
+                    </ProjectFooterPeople>
+                    <ProjectFooterInfoContainer>
+                      <ProjectFooterComments>
+                        <img src="icon/comments_icon.svg" alt="Comments" />
+                        10 comments
+                      </ProjectFooterComments>
+
+                      <ProjectFooterCountFiles>
+                        <img src="icon/folder_icon.svg" alt="Folder" />3 files
+                      </ProjectFooterCountFiles>
+                    </ProjectFooterInfoContainer>
+                  </ProjectFooterContainer>
+                </ProjectsCard>
+              ))}
             </CardState>
           ))}
-        </CardContainer>
+        </CardStateContainer>
       </MainContent>
     </MainStyled>
   );

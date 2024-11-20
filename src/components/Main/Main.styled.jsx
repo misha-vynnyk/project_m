@@ -33,7 +33,7 @@ export const MainContent = styled.div`
   }
 `;
 
-export const CardContainer = styled.div`
+export const CardStateContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,13 +50,29 @@ export const CardState = styled.div`
   background-color: ${({ theme }) => theme.colors.secondaryLightBackground};
 `;
 
-export const ProjectsCard = styled.div`
+export const TitleStateWrapper = styled.div`
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  width: 100%;
+
+  &::after {
+    display: block;
+    position: absolute;
+    bottom: -1.5rem;
+    content: "";
+    width: 100%;
+    height: 3px;
+    background-color: ${({ $lineColor }) => $lineColor};
+  }
 `;
 
 export const TitleCardState = styled.h2`
-  position: relative;
+  display: flex;
+  align-items: center;
   text-align: center;
-  width: 100%;
   color: ${({ theme }) => theme.colors.darkText};
   font-family: ${({ theme }) => theme.fonts.primaryFont};
   font-size: 1rem;
@@ -72,23 +88,121 @@ export const TitleCardState = styled.h2`
     border-radius: 50%;
     background-color: ${({ $lineColor }) => $lineColor};
   }
+`;
 
-  &::after {
-    display: block;
-    position: absolute;
-    margin: 1.4rem 0;
-    content: "";
-    width: 100%;
-    height: 3px;
-    background-color: ${({ $lineColor }) => $lineColor};
-  }
+export const CountProjectsInState = styled.h2`
+  text-align: center;
+  line-height: 1.5rem;
+  color: ${({ theme }) => theme.colors.lightText};
+  font-family: ${({ theme }) => theme.fonts.primaryFont};
+  background-color: ${({ theme }) => theme.colors.secondaryDarkBackground};
+  border-radius: 50%;
+  margin-left: 0.8rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.8rem;
+  font-weight: 500;
 `;
 
 export const AddProjectButton = styled.button`
-margin-left: 14rem;
   width: 1.5rem;
   height: 1.5rem;
 `;
 
- export const AddProjectButtonImg = styled.img`
- `
+export const AddProjectButtonImg = styled.img``;
+
+export const ProjectsCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  width: 100%;
+  border-radius: 16px;
+
+  background: ${({ theme }) => theme.colors.primaryLightBackground};
+`;
+
+export const ProjectHeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ProjectLevel = styled.div`
+  line-height: 1.5rem;
+  width: 2rem;
+  height: 1.4rem;
+  border-radius: 4px;
+  color: ${({ $levelColor }) => $levelColor};
+  font-family: ${({ theme }) => theme.fonts.primaryFont};
+  font-size: 0.75rem;
+  font-weight: 300;
+  line-height: 1.5rem;
+  text-align: center;
+
+  background: ${({ $levelBg }) => $levelBg};
+`;
+
+export const ProjectMenu = styled.div``;
+
+export const ProjectDescriptionContainer = styled.div``;
+
+export const ProjectTitle = styled.h3`
+  margin-bottom: 0.5rem;
+  color: ${({ theme }) => theme.colors.darkText};
+  font-family: ${({ theme }) => theme.fonts.primaryFont};
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: left;
+`;
+
+export const ProjectDescription = styled.p`
+  margin-bottom: 1.5rem;
+  color: ${({ theme }) => theme.colors.lightText};
+  font-family: ${({ theme }) => theme.fonts.primaryFont};
+  font-size: 0.87rem;
+  font-weight: 400;
+  text-align: left;
+`;
+
+export const ProjectFooterContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ProjectFooterPeople = styled.div`
+  width: 63px;
+  height: 24px;
+`;
+export const ProjectFooterInfoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+`;
+export const ProjectFooterComments = styled.div`
+  color: rgb(120, 116, 134);
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  letter-spacing: 0%;
+  text-align: left;
+  margin-right: 1rem;
+
+  img {
+    margin-right: 0.5rem;
+  }
+`;
+export const ProjectFooterCountFiles = styled.div`
+  color: rgb(120, 116, 134);
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  letter-spacing: 0%;
+  text-align: left;
+
+  img {
+    margin-right: 0.5rem;
+  }
+`;
