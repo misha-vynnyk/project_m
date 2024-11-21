@@ -2,8 +2,6 @@ import styled from "styled-components";
 
 export const MainStyled = styled.main`
   margin-top: ${({ theme }) => theme.headerSize.desktopHeight};
-  height: 100%;
-  overflow: hidden;
 
   section {
     padding: 2rem;
@@ -22,11 +20,10 @@ export const MainStyled = styled.main`
 export const MainContent = styled.div`
   margin-left: ${({ $isSidebarOpen }) => ($isSidebarOpen ? "16rem" : "0")};
   transition: all 0.3s ease-in-out;
-  height: 100%;
   padding: 2rem;
-  overflow: hidden;
 
   @media (max-width: ${({ theme }) => theme.mobile}) {
+    padding: 0.5rem;
     margin-left: ${({ $isSidebarOpen }) => ($isSidebarOpen ? "0" : "0")};
     transition: filter 0.3s ease-in-out;
     filter: ${({ $isSidebarOpen }) => ($isSidebarOpen ? "blur(5px)" : "none")};
@@ -34,20 +31,27 @@ export const MainContent = styled.div`
 `;
 
 export const CardStateContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+  place-items: center;
   gap: 1rem;
+
+  @media (max-width: ${({ theme }) => theme.mobile}) {
+    grid-template-columns: repeat(auto-fit, minmax(1fr));
+  }
 `;
 
 export const CardState = styled.div`
   padding: 1.5rem;
   width: 23rem;
-  height: 100vh;
   border-radius: 16px 16px 0px 0px;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   background-color: ${({ theme }) => theme.colors.secondaryLightBackground};
+
+  @media (max-width: ${({ theme }) => theme.mobile}) {
+    width: 20rem;
+    padding: 1rem;
+  }
 `;
 
 export const TitleStateWrapper = styled.div`
@@ -114,6 +118,7 @@ export const AddProjectButtonImg = styled.img``;
 export const ProjectsCard = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 1rem;
   gap: 1rem;
   padding: 1.5rem;
   width: 100%;
@@ -129,21 +134,25 @@ export const ProjectHeaderContainer = styled.div`
 `;
 
 export const ProjectLevel = styled.div`
+  padding: 0 0.4rem;
   line-height: 1.5rem;
-  width: 2rem;
-  height: 1.4rem;
   border-radius: 4px;
   color: ${({ $levelColor }) => $levelColor};
   font-family: ${({ theme }) => theme.fonts.primaryFont};
   font-size: 0.75rem;
   font-weight: 300;
-  line-height: 1.5rem;
   text-align: center;
 
   background: ${({ $levelBg }) => $levelBg};
 `;
 
-export const ProjectMenu = styled.div``;
+export const ProjectMenu = styled.button`
+  background-color: transparent;
+`;
+
+export const IconProjectMenu = styled.img`
+  
+`
 
 export const ProjectDescriptionContainer = styled.div``;
 
@@ -179,30 +188,19 @@ export const ProjectFooterInfoContainer = styled.div`
   align-items: center;
   margin-bottom: 1.5rem;
 `;
+
 export const ProjectFooterComments = styled.div`
-  color: rgb(120, 116, 134);
-  font-family: Inter;
-  font-size: 12px;
+  color: ${({ theme }) => theme.colors.lightText};
+  font-family: ${({ theme }) => theme.fonts.primaryFont};
+  font-size: 0.8rem;
   font-weight: 500;
-  line-height: 15px;
-  letter-spacing: 0%;
   text-align: left;
   margin-right: 1rem;
-
-  img {
-    margin-right: 0.5rem;
-  }
 `;
 export const ProjectFooterCountFiles = styled.div`
-  color: rgb(120, 116, 134);
-  font-family: Inter;
-  font-size: 12px;
+  color: ${({ theme }) => theme.colors.lightText};
+  font-family: ${({ theme }) => theme.fonts.primaryFont};
+  font-size: 0.8rem;
   font-weight: 500;
-  line-height: 15px;
-  letter-spacing: 0%;
   text-align: left;
-
-  img {
-    margin-right: 0.5rem;
-  }
 `;
