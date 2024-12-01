@@ -1,5 +1,3 @@
-import { useState } from "react";
-// import useUserPosts from "../../hooks/useUserPosts";
 import Sidebar from "../Sidebar/Sidebar";
 import {
   AddProjectButton,
@@ -25,351 +23,209 @@ import {
   ProjectFooterCountFiles,
   IconProjectMenu,
 } from "./Main.styled";
-import PropTypes from "prop-types";
+import initialData from "../../data/initial-data";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-  padding: 20px;
+import PropTypes from "prop-types";
+import { useState } from "react";
 
-  input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-
-  button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-`;
-
-// Component for creating a new post
-const NewPostForm = ({ onAddPost }) => {
-  const [newPost, setNewPost] = useState({
-    post: "",
-    isPublic: false,
-    whoPublished: "",
-    sharedTo: "",
-    likes: 0,
-    plays: 0,
-  });
-
-  // Handles input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewPost((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  // Submits the form data
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (
-      newPost.post.trim() &&
-      newPost.whoPublished.trim() &&
-      newPost.sharedTo.trim()
-    ) {
-      onAddPost(newPost);
-      setNewPost({
-        post: "",
-        isPublic: false,
-        whoPublished: "",
-        sharedTo: "",
-        likes: 0,
-        plays: 0,
-      });
-    } else {
-      alert("Please fill in all fields");
-    }
-  };
-
-  return (
-    <StyledForm onSubmit={handleSubmit}>
-      <input
-        name="post"
-        value={newPost.post}
-        onChange={handleChange}
-        placeholder="Post content"
-      />
-      <input
-        name="whoPublished"
-        value={newPost.whoPublished}
-        onChange={handleChange}
-        placeholder="Author"
-      />
-      <input
-        name="sharedTo"
-        value={newPost.sharedTo}
-        onChange={handleChange}
-        placeholder="Shared To"
-      />
-      <button type="submit">Add Post</button>
-    </StyledForm>
-  );
-};
-
-const listCardState = [
-  {
-    id: 1,
-    title: "To Do",
-    lineColor: "#5030E5",
-  },
-  {
-    id: 2,
-    title: "In Progress",
-    lineColor: "#FFA500",
-  },
-  {
-    id: 3,
-    title: "Done",
-    lineColor: "#8BC48A",
-  },
-];
-
-const listProjects = [
-  {
-    id: 1,
-    status: "To Do",
-    level: "low",
-    levelColor: "#D58D49",
-    levelBackgroundColor: "rgba(223, 168, 116, 0.2)",
-    title: "Brainstorming",
-    description:
-      "Brainstorming brings team members' diverse experience into play. ",
-    image: "",
-  },
-  {
-    id: 2,
-    status: "In Progress",
-    level: "medium",
-    levelColor: "#8BC48A",
-    levelBackgroundColor: "rgba(139, 196, 138, 0.2)",
-    title: "Research",
-    description:
-      "User research helps you to create an optimal product for users.",
-    image: "",
-  },
-  {
-    id: 3,
-    status: "Done",
-    level: "high",
-    levelColor: "#5030E5",
-    levelBackgroundColor: "rgba(80, 48, 229, 0.2)",
-    title: "Wireframes",
-    description:
-      "Low fidelity wireframes include the most basic content and visuals.",
-    image: "",
-  },
-  {
-    id: 4,
-    status: "To Do",
-    level: "low",
-    levelColor: "#D58D49",
-    levelBackgroundColor: "rgba(223, 168, 116, 0.2)",
-    title: "Testing",
-    description:
-      "Find out whether your prototype meets users' expectations.",
-    image: "",
-  },
-  {
-    id: 5,
-    status: "In Progress",
-    level: "medium",
-    levelColor: "#8BC48A",
-    levelBackgroundColor: "rgba(139, 196, 138, 0.2)",
-    title: "Design",
-    description: "The wireframe stage handles the look and feel.",
-    image: "",
-  }
-];
-
-// const listUsers = [
-//   {
-//     id: 1,
-//     userName: "Anima Agrawal",
-//     userPhoto: "image/user-1.png",
-//   },
-//   {
-//     id: 2,
-//     userName: "Leila Farhana",
-//     userPhoto: "image/user-2.png",
-//   },
-//   {
-//     id: 3,
-//     userName: "Nick Jhonson",
-//     userPhoto: "image/user-3.png",
-//   },
-//   {
-//     id: 4,
-//     userName: "Sanjana Shrestha",
-//     userPhoto: "image/user-4.png",
-//   },
-// ];
+const TaskList = styled.div``;
 
 const Main = ({ isSidebarOpen }) => {
-  // const { posts, addPost, removePost } = useUserPosts([]);
+  const [initialDataArray, setInitialDataArray] = useState(initialData);
 
+  const onDragEnd = (result) => {
+    const { source, destination, draggableId } = result;
+
+    // If there's no destination (dropped outside), return
+    if (!destination) {
+      return;
+    }
+
+    // If the item is dropped at the same position, do nothing
+    if (
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
+    ) {
+      return;
+    }
+
+    // Reordering tasks within the same column
+    if (source.droppableId === destination.droppableId) {
+      const column = initialDataArray.columns[source.droppableId];
+      const newTaskIds = Array.from(column.taskIds);
+      newTaskIds.splice(source.index, 1); // Remove the task from its initial position
+      newTaskIds.splice(destination.index, 0, draggableId); // Insert it at the new position
+
+      const updatedColumn = {
+        ...column,
+        taskIds: newTaskIds,
+      };
+
+      const updatedData = {
+        ...initialDataArray,
+        columns: {
+          ...initialDataArray.columns,
+          [updatedColumn.id]: updatedColumn,
+        },
+      };
+
+      setInitialDataArray(updatedData);
+    } else {
+      // Moving task to a different column
+      const sourceColumn = initialDataArray.columns[source.droppableId];
+      const destinationColumn =
+        initialDataArray.columns[destination.droppableId];
+
+      const sourceTaskIds = Array.from(sourceColumn.taskIds);
+      sourceTaskIds.splice(source.index, 1); // Remove the task from the source column
+
+      const destinationTaskIds = Array.from(destinationColumn.taskIds);
+      destinationTaskIds.splice(destination.index, 0, draggableId); // Add the task to the destination column
+
+      const updatedSourceColumn = {
+        ...sourceColumn,
+        taskIds: sourceTaskIds,
+      };
+
+      const updatedDestinationColumn = {
+        ...destinationColumn,
+        taskIds: destinationTaskIds,
+      };
+
+      const updatedData = {
+        ...initialDataArray,
+        columns: {
+          ...initialDataArray.columns,
+          [updatedSourceColumn.id]: updatedSourceColumn,
+          [updatedDestinationColumn.id]: updatedDestinationColumn,
+        },
+      };
+
+      setInitialDataArray(updatedData);
+    }
+  };
+  
   return (
     <MainStyled>
       <Sidebar isSidebarOpen={isSidebarOpen} />
       <MainContent $isSidebarOpen={isSidebarOpen}>
         <CardStateContainer>
-          {listCardState.map((card) => (
-            <CardState key={card.id} title={card.title}>
-              <TitleStateWrapper $lineColor={card.lineColor}>
-                <TitleCardState $lineColor={card.lineColor}>
-                  {card.title}
-                  <CountProjectsInState aria-label="State Project">10</CountProjectsInState>
-                </TitleCardState>
-                {card.id === 1 && (
-                  <AddProjectButton
-                    aria-haspopup="dialog"
-                    aria-controls="new-project-popup"
-                    aria-label="Create new project"
-                  >
-                    <AddProjectButtonImg
-                      src="icon/add-square_icon.svg"
-                      aria-hidden="true"
-                    />
-                  </AddProjectButton>
-                )}
-              </TitleStateWrapper>
+          <DragDropContext onDragEnd={onDragEnd}>
+            {initialDataArray.columnOrder.map((columnId) => {
+              const column = initialDataArray.columns[columnId];
+              const tasks = column.taskIds.map(
+                (taskId) => initialDataArray.tasks[taskId]
+              );
+              return (
+                <CardState key={column.id} column={column} tasks={tasks}>
+                  <TitleStateWrapper $lineColor={column.lineColor}>
+                    <TitleCardState $lineColor={column.lineColor}>
+                      {column.title}
+                      <CountProjectsInState aria-label="State Project">
+                        10
+                      </CountProjectsInState>
+                    </TitleCardState>
+                    {column.id === "column-1" && (
+                      <AddProjectButton
+                        aria-haspopup="dialog"
+                        aria-controls="new-project-popup"
+                        aria-label="Create new project"
+                      >
+                        <AddProjectButtonImg
+                          src="icon/add-square_icon.svg"
+                          aria-hidden="true"
+                        />
+                      </AddProjectButton>
+                    )}
+                  </TitleStateWrapper>
+                  <Droppable droppableId={column.id}>
+                    {(provided) => (
+                      <TaskList
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                      >
+                        {tasks.map((task, index) => (
+                          <Draggable
+                            draggableId={task.id}
+                            key={task.id}
+                            index={index}
+                          >
+                            {(provided) => (
+                              <ProjectsCard
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                ref={provided.innerRef}
+                              >
+                                <ProjectHeaderContainer>
+                                  <ProjectLevel
+                                    aria-label="Project level"
+                                    $levelColor={task.levelColor}
+                                    $levelBg={task.levelBackgroundColor}
+                                  >
+                                    {task.level}
+                                  </ProjectLevel>
+                                  <ProjectMenu role="button">
+                                    <IconProjectMenu
+                                      src="icon/dots_icon.svg"
+                                      alt="Menu"
+                                    />
+                                  </ProjectMenu>
+                                </ProjectHeaderContainer>
 
-              {listProjects.map((project) => (
-                <ProjectsCard key={project.id}>
-                  <ProjectHeaderContainer>
-                    <ProjectLevel
-                      aria-label="Project level"
-                      $levelColor={project.levelColor}
-                      $levelBg={project.levelBackgroundColor}
-                    >
-                      {project.level}
-                    </ProjectLevel>
-                    <ProjectMenu aria-action="Open menu in Project Card" role="button">
-                      <IconProjectMenu src="icon/dots_icon.svg" alt="Menu" />
-                    </ProjectMenu>
-                  </ProjectHeaderContainer>
+                                <ProjectDescriptionContainer>
+                                  <ProjectTitle>{task.content}</ProjectTitle>
+                                  <ProjectDescription>
+                                    {task.description}
+                                  </ProjectDescription>
+                                </ProjectDescriptionContainer>
 
-                  <ProjectDescriptionContainer>
-                    <ProjectTitle>{project.title}</ProjectTitle>
-                    <ProjectDescription>
-                      {project.description}
-                    </ProjectDescription>
-                  </ProjectDescriptionContainer>
+                                <ProjectFooterContainer>
+                                  <ProjectFooterPeople>
+                                    <img
+                                      src="image/Group 633.png"
+                                      alt="Persons"
+                                    />
+                                  </ProjectFooterPeople>
+                                  <ProjectFooterInfoContainer>
+                                    <ProjectFooterComments>
+                                      <img
+                                        src="icon/comments_icon.svg"
+                                        alt="Comments"
+                                      />
+                                      10 comments
+                                    </ProjectFooterComments>
 
-                  <ProjectFooterContainer>
-                    <ProjectFooterPeople>
-                      <img src="image/Group 633.png" alt="Persons" />
-                    </ProjectFooterPeople>
-                    <ProjectFooterInfoContainer>
-                      <ProjectFooterComments>
-                        <img src="icon/comments_icon.svg" alt="Comments" />
-                        10 comments
-                      </ProjectFooterComments>
-
-                      <ProjectFooterCountFiles>
-                        <img src="icon/folder_icon.svg" alt="Folder" />3 files
-                      </ProjectFooterCountFiles>
-                    </ProjectFooterInfoContainer>
-                  </ProjectFooterContainer>
-                </ProjectsCard>
-              ))}
-            </CardState>
-          ))}
+                                    <ProjectFooterCountFiles>
+                                      <img
+                                        src="icon/folder_icon.svg"
+                                        alt="Folder"
+                                      />
+                                      3 files
+                                    </ProjectFooterCountFiles>
+                                  </ProjectFooterInfoContainer>
+                                </ProjectFooterContainer>
+                              </ProjectsCard>
+                            )}
+                          </Draggable>
+                        ))}
+                        {provided.placeholder}
+                      </TaskList>
+                    )}
+                  </Droppable>
+                </CardState>
+              );
+            })}
+          </DragDropContext>
         </CardStateContainer>
       </MainContent>
     </MainStyled>
   );
 };
 
-export default Main;
-
 Main.propTypes = {
   isSidebarOpen: PropTypes.bool.isRequired,
 };
 
-NewPostForm.propTypes = {
-  onAddPost: PropTypes.func.isRequired,
-};
-
-{
-  /* <div>
-  <NewPostForm onAddPost={addPost} />
-
-  <section>
-    {posts.map((post) => (
-      <div key={post.id}>
-        <h3>{post.post}</h3>
-        <p>Published by: {post.whoPublished}</p>
-        <p>Shared To: {post.sharedTo}</p>
-        <button onClick={() => removePost(post.id)}>Remove Post</button>
-      </div>
-    ))}
-  </section>
-</div>
-
-
-<div>
-  <section>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-    temporibus ut perferendis placeat omnis dolores alias saepe modi,
-    similique tempore itaque laboriosam molestias dicta porro
-    accusantium in eaque recusandae tenetur quo debitis! Modi animi quam
-    ratione iure molestias ipsum perspiciatis eius consectetur, delectus
-    suscipit. Et nisi maiores nulla atque voluptatem.
-  </section>
-  <section>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-    temporibus ut perferendis placeat omnis dolores alias saepe modi,
-    similique tempore itaque laboriosam molestias dicta porro
-    accusantium in eaque recusandae tenetur quo debitis! Modi animi quam
-    ratione iure molestias ipsum perspiciatis eius consectetur, delectus
-    suscipit. Et nisi maiores nulla atque voluptatem.
-  </section>
-  <section>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-    temporibus ut perferendis placeat omnis dolores alias saepe modi,
-    similique tempore itaque laboriosam molestias dicta porro
-    accusantium in eaque recusandae tenetur quo debitis! Modi animi quam
-    ratione iure molestias ipsum perspiciatis eius consectetur, delectus
-    suscipit. Et nisi maiores nulla atque voluptatem.
-  </section>
-  <section>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-    temporibus ut perferendis placeat omnis dolores alias saepe modi,
-    similique tempore itaque laboriosam molestias dicta porro
-    accusantium in eaque recusandae tenetur quo debitis! Modi animi quam
-    ratione iure molestias ipsum perspiciatis eius consectetur, delectus
-    suscipit. Et nisi maiores nulla atque voluptatem.
-  </section>
-  <section>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-    temporibus ut perferendis placeat omnis dolores alias saepe modi,
-    similique tempore itaque laboriosam molestias dicta porro
-    accusantium in eaque recusandae tenetur quo debitis! Modi animi quam
-    ratione iure molestias ipsum perspiciatis eius consectetur, delectus
-    suscipit. Et nisi maiores nulla atque voluptatem.
-  </section>
-  <section>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-    temporibus ut perferendis placeat omnis dolores alias saepe modi,
-    similique tempore itaque laboriosam molestias dicta porro
-    accusantium in eaque recusandae tenetur quo debitis! Modi animi quam
-    ratione iure molestias ipsum perspiciatis eius consectetur, delectus
-    suscipit. Et nisi maiores nulla atque voluptatem.
-  </section>
-</div> */
-}
+export default Main;

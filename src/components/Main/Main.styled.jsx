@@ -3,11 +3,6 @@ import styled from "styled-components";
 export const MainStyled = styled.main`
   margin-top: ${({ theme }) => theme.headerSize.desktopHeight};
 
-  section {
-    padding: 2rem;
-    background-color: ${({ theme }) => theme.colors.primaryBlackBackground};
-  }
-
   @media (max-width: ${({ theme }) => theme.mobile}) {
     margin-top: ${({ theme }) => theme.headerSize.mobileHeight};
   }
@@ -32,8 +27,8 @@ export const MainContent = styled.div`
 
 export const CardStateContainer = styled.div`
   display: grid;
+  justify-content: center;
   grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
-  place-items: center;
   gap: 1rem;
 
   @media (max-width: ${({ theme }) => theme.mobile}) {
@@ -94,7 +89,7 @@ export const TitleCardState = styled.h2`
   }
 `;
 
-export const CountProjectsInState = styled.h2`
+export const CountProjectsInState = styled.p`
   text-align: center;
   line-height: 1.5rem;
   color: ${({ theme }) => theme.colors.lightText};

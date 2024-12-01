@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "react": "^18.3.1",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-dnd": "^16.0.1",
     "react-dom": "^18.3.1",
     "styled-components": "^6.1.13"
   },
@@ -29,7 +31,7 @@
     "globals": "^15.11.0",
     "vite": "^5.4.10"
   },
-    "resolutions": {
+  "resolutions": {
     "styled-components": "^5"
   }
 }
