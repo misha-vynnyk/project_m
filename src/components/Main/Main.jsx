@@ -35,78 +35,84 @@ const TaskList = styled.div``;
 const Main = ({ isSidebarOpen }) => {
   const [initialDataArray, setInitialDataArray] = useState(initialData);
 
+  const moveTaskBetweenColumns = (
+    startColumn,
+    finishColumn,
+    sourceIndex,
+    destinationIndex,
+    draggableId
+  ) => {
+    // Delete task from the source column
+    const sourceTaskIds = Array.from(startColumn.taskIds);
+    sourceTaskIds.splice(sourceIndex, 1);
+
+    // Add task to the destination column
+    const destinationTaskIds = Array.from(finishColumn.taskIds || []);
+    destinationTaskIds.splice(destinationIndex, 0, draggableId); // Add the dragged task to the destination column
+
+    console.log("destinationTaskIds", destinationTaskIds);
+    
+
+    return {
+      updatedStartColumn: { ...startColumn, taskIds: sourceTaskIds },
+      updatedFinishColumn: { ...finishColumn, taskIds: destinationTaskIds },
+    };
+  };
+
   const onDragEnd = (result) => {
     const { source, destination, draggableId } = result;
 
-    // If there's no destination (dropped outside), return
-    if (!destination) {
-      return;
-    }
-
-    // If the item is dropped at the same position, do nothing
+    if (!destination) return; // If dropped outside the list
     if (
       source.droppableId === destination.droppableId &&
       source.index === destination.index
     ) {
-      return;
+      return; // Element was dropped back into its original position
     }
 
-    // Reordering tasks within the same column
-    if (source.droppableId === destination.droppableId) {
-      const column = initialDataArray.columns[source.droppableId];
-      const newTaskIds = Array.from(column.taskIds);
-      newTaskIds.splice(source.index, 1); // Remove the task from its initial position
-      newTaskIds.splice(destination.index, 0, draggableId); // Insert it at the new position
+    const start = initialDataArray.columns[source.droppableId];
+    const finish = initialDataArray.columns[destination.droppableId];
+
+    if (start === finish) {
+      // Dragging within the same column
+      const newTaskIds = Array.from(start.taskIds);
+      newTaskIds.splice(source.index, 1);
+      newTaskIds.splice(destination.index, 0, draggableId);
 
       const updatedColumn = {
-        ...column,
+        ...start,
         taskIds: newTaskIds,
       };
 
-      const updatedData = {
-        ...initialDataArray,
+      setInitialDataArray((prevData) => ({
+        ...prevData,
         columns: {
-          ...initialDataArray.columns,
+          ...prevData.columns,
           [updatedColumn.id]: updatedColumn,
         },
-      };
-
-      setInitialDataArray(updatedData);
+      }));
     } else {
-      // Moving task to a different column
-      const sourceColumn = initialDataArray.columns[source.droppableId];
-      const destinationColumn =
-        initialDataArray.columns[destination.droppableId];
+      // Dragging between columns
+      const { updatedStartColumn, updatedFinishColumn } =
+        moveTaskBetweenColumns(
+          start,
+          finish,
+          source.index,
+          destination.index,
+          draggableId
+        );
 
-      const sourceTaskIds = Array.from(sourceColumn.taskIds);
-      sourceTaskIds.splice(source.index, 1); // Remove the task from the source column
-
-      const destinationTaskIds = Array.from(destinationColumn.taskIds);
-      destinationTaskIds.splice(destination.index, 0, draggableId); // Add the task to the destination column
-
-      const updatedSourceColumn = {
-        ...sourceColumn,
-        taskIds: sourceTaskIds,
-      };
-
-      const updatedDestinationColumn = {
-        ...destinationColumn,
-        taskIds: destinationTaskIds,
-      };
-
-      const updatedData = {
-        ...initialDataArray,
+      setInitialDataArray((prevData) => ({
+        ...prevData,
         columns: {
-          ...initialDataArray.columns,
-          [updatedSourceColumn.id]: updatedSourceColumn,
-          [updatedDestinationColumn.id]: updatedDestinationColumn,
+          ...prevData.columns,
+          [updatedStartColumn.id]: updatedStartColumn,
+          [updatedFinishColumn.id]: updatedFinishColumn,
         },
-      };
-
-      setInitialDataArray(updatedData);
+      }));
     }
   };
-  
+
   return (
     <MainStyled>
       <Sidebar isSidebarOpen={isSidebarOpen} />
@@ -211,6 +217,11 @@ const Main = ({ isSidebarOpen }) => {
                           </Draggable>
                         ))}
                         {provided.placeholder}
+                        {column.taskIds.length === 0 && (
+                          <div style={{ textAlign: "center", color: "#aaa" }}>
+                            Drop tasks here
+                          </div>
+                        )}
                       </TaskList>
                     )}
                   </Droppable>
