@@ -22,6 +22,8 @@ import {
   ProjectFooterComments,
   ProjectFooterCountFiles,
   IconProjectMenu,
+  ProjectImage,
+  Container,
 } from "./Main.styled";
 import initialData from "../../data/initial-data";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
@@ -51,7 +53,6 @@ const Main = ({ isSidebarOpen }) => {
     destinationTaskIds.splice(destinationIndex, 0, draggableId); // Add the dragged task to the destination column
 
     console.log("destinationTaskIds", destinationTaskIds);
-    
 
     return {
       updatedStartColumn: { ...startColumn, taskIds: sourceTaskIds },
@@ -130,7 +131,7 @@ const Main = ({ isSidebarOpen }) => {
                     <TitleCardState $lineColor={column.lineColor}>
                       {column.title}
                       <CountProjectsInState aria-label="State Project">
-                        10
+                        {column.taskIds.length}
                       </CountProjectsInState>
                     </TitleCardState>
                     {column.id === "column-1" && (
@@ -179,12 +180,21 @@ const Main = ({ isSidebarOpen }) => {
                                     />
                                   </ProjectMenu>
                                 </ProjectHeaderContainer>
-
                                 <ProjectDescriptionContainer>
                                   <ProjectTitle>{task.content}</ProjectTitle>
-                                  <ProjectDescription>
-                                    {task.description}
-                                  </ProjectDescription>
+                                  {task?.image ? (
+                                    <Container>
+                                      <ProjectImage
+                                        src={task.image}
+                                        alt={task.content || "Project image"} // Use title as alt text
+                                      />
+                                    </Container>
+                                  ) : (
+                                    <ProjectDescription>
+                                      {task.description ||
+                                        "No Description Available"}
+                                    </ProjectDescription>
+                                  )}
                                 </ProjectDescriptionContainer>
 
                                 <ProjectFooterContainer>

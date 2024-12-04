@@ -1,191 +1,3 @@
-// const listCardState = [
-//   {
-//     id: 1,
-//     title: "To Do",
-//     lineColor: "#5030E5",
-//     listProjects: [
-//       {
-//         id: 1,
-//         status: "To Do",
-//         level: "low",
-//         levelColor: "#D58D49",
-//         levelBackgroundColor: "rgba(223, 168, 116, 0.2)",
-//         title: "Brainstorming",
-//         description:
-//           "Brainstorming brings team members' diverse experience into play. ",
-//         image: "",
-//       },
-//       // {
-//       //   id: 2,
-//       //   status: "In Progress",
-//       //   level: "medium",
-//       //   levelColor: "#8BC48A",
-//       //   levelBackgroundColor: "rgba(139, 196, 138, 0.2)",
-//       //   title: "Research",
-//       //   description:
-//       //     "User research helps you to create an optimal product for users.",
-//       //   image: "",
-//       // },
-//       // {
-//       //   id: 3,
-//       //   status: "Done",
-//       //   level: "high",
-//       //   levelColor: "#5030E5",
-//       //   levelBackgroundColor: "rgba(80, 48, 229, 0.2)",
-//       //   title: "Wireframes",
-//       //   description:
-//       //     "Low fidelity wireframes include the most basic content and visuals.",
-//       //   image: "",
-//       // },
-//       // {
-//       //   id: 4,
-//       //   status: "To Do",
-//       //   level: "low",
-//       //   levelColor: "#D58D49",
-//       //   levelBackgroundColor: "rgba(223, 168, 116, 0.2)",
-//       //   title: "Testing",
-//       //   description:
-//       //     "Find out whether your prototype meets users' expectations.",
-//       //   image: "",
-//       // },
-//       // {
-//       //   id: 5,
-//       //   status: "In Progress",
-//       //   level: "medium",
-//       //   levelColor: "#8BC48A",
-//       //   levelBackgroundColor: "rgba(139, 196, 138, 0.2)",
-//       //   title: "Design",
-//       //   description: "The wireframe stage handles the look and feel.",
-//       //   image: "",
-//       // },
-//     ],
-//   },
-//   {
-//     id: 2,
-//     title: "In Progress",
-//     lineColor: "#FFA500",
-//     listProjects: [
-//       // {
-//       //   id: 1,
-//       //   status: "To Do",
-//       //   level: "low",
-//       //   levelColor: "#D58D49",
-//       //   levelBackgroundColor: "rgba(223, 168, 116, 0.2)",
-//       //   title: "Brainstorming",
-//       //   description:
-//       //     "Brainstorming brings team members' diverse experience into play. ",
-//       //   image: "",
-//       // },
-//       {
-//         id: 2,
-//         status: "In Progress",
-//         level: "medium",
-//         levelColor: "#8BC48A",
-//         levelBackgroundColor: "rgba(139, 196, 138, 0.2)",
-//         title: "Research",
-//         description:
-//           "User research helps you to create an optimal product for users.",
-//         image: "",
-//       },
-//       // {
-//       //   id: 3,
-//       //   status: "Done",
-//       //   level: "high",
-//       //   levelColor: "#5030E5",
-//       //   levelBackgroundColor: "rgba(80, 48, 229, 0.2)",
-//       //   title: "Wireframes",
-//       //   description:
-//       //     "Low fidelity wireframes include the most basic content and visuals.",
-//       //   image: "",
-//       // },
-//       // {
-//       //   id: 4,
-//       //   status: "To Do",
-//       //   level: "low",
-//       //   levelColor: "#D58D49",
-//       //   levelBackgroundColor: "rgba(223, 168, 116, 0.2)",
-//       //   title: "Testing",
-//       //   description:
-//       //     "Find out whether your prototype meets users' expectations.",
-//       //   image: "",
-//       // },
-//       // {
-//       //   id: 5,
-//       //   status: "In Progress",
-//       //   level: "medium",
-//       //   levelColor: "#8BC48A",
-//       //   levelBackgroundColor: "rgba(139, 196, 138, 0.2)",
-//       //   title: "Design",
-//       //   description: "The wireframe stage handles the look and feel.",
-//       //   image: "",
-//       // },
-//     ],
-//   },
-//   {
-//     id: 3,
-//     title: "Done",
-//     lineColor: "#8BC48A",
-//     listProjects: [
-//       // {
-//       //   id: 1,
-//       //   status: "To Do",
-//       //   level: "low",
-//       //   levelColor: "#D58D49",
-//       //   levelBackgroundColor: "rgba(223, 168, 116, 0.2)",
-//       //   title: "Brainstorming",
-//       //   description:
-//       //     "Brainstorming brings team members' diverse experience into play. ",
-//       //   image: "",
-//       // },
-//       // {
-//       //   id: 2,
-//       //   status: "In Progress",
-//       //   level: "medium",
-//       //   levelColor: "#8BC48A",
-//       //   levelBackgroundColor: "rgba(139, 196, 138, 0.2)",
-//       //   title: "Research",
-//       //   description:
-//       //     "User research helps you to create an optimal product for users.",
-//       //   image: "",
-//       // },
-//       {
-//         id: 3,
-//         status: "Done",
-//         level: "high",
-//         levelColor: "#5030E5",
-//         levelBackgroundColor: "rgba(80, 48, 229, 0.2)",
-//         title: "Wireframes",
-//         description:
-//           "Low fidelity wireframes include the most basic content and visuals.",
-//         image: "",
-//       },
-//       // {
-//       //   id: 4,
-//       //   status: "To Do",
-//       //   level: "low",
-//       //   levelColor: "#D58D49",
-//       //   levelBackgroundColor: "rgba(223, 168, 116, 0.2)",
-//       //   title: "Testing",
-//       //   description:
-//       //     "Find out whether your prototype meets users' expectations.",
-//       //   image: "",
-//       // },
-//       // {
-//       //   id: 5,
-//       //   status: "In Progress",
-//       //   level: "medium",
-//       //   levelColor: "#8BC48A",
-//       //   levelBackgroundColor: "rgba(139, 196, 138, 0.2)",
-//       //   title: "Design",
-//       //   description: "The wireframe stage handles the look and feel.",
-//       //   image: "",
-//       // },
-//     ],
-//   },
-// ];
-
-// export default listCardState;
-
 const initialData = {
   tasks: {
     "task-1": {
@@ -196,7 +8,6 @@ const initialData = {
       level: "low",
       levelColor: "#D58D49",
       levelBackgroundColor: "rgba(223, 168, 116, 0.2)",
-      status: "To Do",
       image: "",
     },
     "task-2": {
@@ -207,7 +18,6 @@ const initialData = {
       level: "medium",
       levelColor: "#8BC48A",
       levelBackgroundColor: "rgba(139, 196, 138, 0.2)",
-      status: "In Progress",
       image: "",
     },
     "task-3": {
@@ -218,7 +28,42 @@ const initialData = {
       level: "high",
       levelColor: "#5030E5",
       levelBackgroundColor: "rgba(80, 48, 229, 0.2)",
-      status: "Done",
+      image: "",
+    },
+    "task-4": {
+      id: "task-4",
+      content: "Onboarding illustrations",
+      description: "Help users understand how to use your service.",
+      level: "low",
+      levelColor: "#D58D49",
+      levelBackgroundColor: "rgba(223, 168, 116, 0.2)",
+      image: "image/onboarding-illustration.png",
+    },
+    "task-5": {
+      id: "task-5",
+      content: "Moodboard",
+      description: "The first impression is a crucial moment.",
+      level: "low",
+      levelColor: "#D58D49",
+      levelBackgroundColor: "rgba(223, 168, 116, 0.2)",
+      image: "image/moodboard-1.png",
+    },
+    "task-6": {
+      id: "task-6",
+      content: "Mobile App Design",
+      description: "Make sure your mobile app looks great on all devices.",
+      level: "completed",
+      levelColor: "#8BC48A",
+      levelBackgroundColor: "rgba(139, 196, 138, 0.2)",
+      image: "image/mobile-app-design.png",
+    },
+    "task-7": {
+      id: "task-7",
+      content: "Design system",
+      description: "Create a robust pattern library and reusable components.",
+      level: "completed",
+      levelColor: "#8BC48A",
+      levelBackgroundColor: "rgba(139, 196, 138, 0.2)",
       image: "",
     },
   },
@@ -226,19 +71,19 @@ const initialData = {
     "column-1": {
       id: "column-1",
       title: "To Do",
-      taskIds: ["task-1"],
+      taskIds: ["task-1", "task-2", "task-3"],
       lineColor: "#5030E5",
     },
     "column-2": {
       id: "column-2",
       title: "In Progress",
-      taskIds: ["task-2"],
+      taskIds: ["task-4", "task-5"],
       lineColor: "#FFA500",
     },
     "column-3": {
       id: "column-3",
       title: "Done",
-      taskIds: ["task-3"],
+      taskIds: ["task-6", "task-7"],
       lineColor: "#8BC48A",
     },
   },

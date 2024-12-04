@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+`;
+
 export const MainStyled = styled.main`
   margin-top: ${({ theme }) => theme.headerSize.desktopHeight};
 
@@ -27,7 +30,7 @@ export const MainContent = styled.div`
 
 export const CardStateContainer = styled.div`
   display: grid;
-  justify-content: center;
+  justify-items: center;
   grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
   gap: 1rem;
 
@@ -145,9 +148,7 @@ export const ProjectMenu = styled.button`
   background-color: transparent;
 `;
 
-export const IconProjectMenu = styled.img`
-  
-`
+export const IconProjectMenu = styled.img``;
 
 export const ProjectDescriptionContainer = styled.div``;
 
@@ -167,6 +168,10 @@ export const ProjectDescription = styled.p`
   font-size: 0.87rem;
   font-weight: 400;
   text-align: left;
+`;
+
+export const ProjectImage = styled.img`
+  border-radius: 8px;
 `;
 
 export const ProjectFooterContainer = styled.div`
