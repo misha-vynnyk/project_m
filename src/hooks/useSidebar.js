@@ -3,7 +3,7 @@ import { useIsResponsive } from "./useResponsive";
 
 export const useSidebar = (initialState = false) => {
   // Check if the screen is mobile for controlling the Sidebar state
-  const isMobile = useIsResponsive(768); // Track screen size less than or equal to 768px
+  const isMobile = useIsResponsive(700); // Track screen size 
 
   const [isSidebarOpen, setSidebarOpen] = useState(
     isMobile ? false : initialState

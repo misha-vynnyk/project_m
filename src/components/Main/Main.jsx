@@ -1,4 +1,11 @@
+import { useState } from "react";
+import PropTypes from "prop-types";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
+import initialData from "../../data/initial-data";
+
 import Sidebar from "../Sidebar/Sidebar";
+
 import {
   AddProjectButton,
   AddProjectButtonImg,
@@ -24,17 +31,11 @@ import {
   IconProjectMenu,
   ProjectImage,
   Container,
+  DropInfo,
+  TaskList,
 } from "./Main.styled";
-import initialData from "../../data/initial-data";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import styled from "styled-components";
 
-import PropTypes from "prop-types";
-import { useState } from "react";
-
-const TaskList = styled.div``;
-
-const Main = ({ isSidebarOpen }) => {
+const Main = ({ isSidebarOpen, sidebarRef }) => {
   const [initialDataArray, setInitialDataArray] = useState(initialData);
 
   const moveTaskBetweenColumns = (
@@ -116,7 +117,7 @@ const Main = ({ isSidebarOpen }) => {
 
   return (
     <MainStyled>
-      <Sidebar isSidebarOpen={isSidebarOpen} />
+      <Sidebar isSidebarOpen={isSidebarOpen} ref={sidebarRef}/>
       <MainContent $isSidebarOpen={isSidebarOpen}>
         <CardStateContainer>
           <DragDropContext onDragEnd={onDragEnd}>
@@ -228,9 +229,11 @@ const Main = ({ isSidebarOpen }) => {
                         ))}
                         {provided.placeholder}
                         {column.taskIds.length === 0 && (
-                          <div style={{ textAlign: "center", color: "#aaa" }}>
+                          <DropInfo
+                            style={{ textAlign: "center", color: "#aaa" }}
+                          >
                             Drop tasks here
-                          </div>
+                          </DropInfo>
                         )}
                       </TaskList>
                     )}
@@ -247,6 +250,7 @@ const Main = ({ isSidebarOpen }) => {
 
 Main.propTypes = {
   isSidebarOpen: PropTypes.bool.isRequired,
+  sidebarRef: PropTypes.any,
 };
 
 export default Main;

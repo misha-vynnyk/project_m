@@ -113,6 +113,10 @@ export const AddProjectButton = styled.button`
 
 export const AddProjectButtonImg = styled.img``;
 
+export const TaskList = styled.div`
+  height: 100%;
+`;
+
 export const ProjectsCard = styled.div`
   display: flex;
   flex-direction: column;
@@ -204,3 +208,7 @@ export const ProjectFooterCountFiles = styled.div`
   font-weight: 500;
   text-align: left;
 `;
+
+export const DropInfo = styled.div`
+  height: 100%;
+`
