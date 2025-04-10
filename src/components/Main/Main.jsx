@@ -127,7 +127,7 @@ const Main = ({ isSidebarOpen, sidebarRef }) => {
                 (taskId) => initialDataArray.tasks[taskId]
               );
               return (
-                <CardState key={column.id} column={column} tasks={tasks}>
+                <CardState key={column.id} $column={column} $tasks={tasks}>
                   <TitleStateWrapper $lineColor={column.lineColor}>
                     <TitleCardState $lineColor={column.lineColor}>
                       {column.title}
@@ -148,6 +148,7 @@ const Main = ({ isSidebarOpen, sidebarRef }) => {
                       </AddProjectButton>
                     )}
                   </TitleStateWrapper>
+
                   <Droppable droppableId={column.id}>
                     {(provided) => (
                       <TaskList
@@ -238,6 +239,7 @@ const Main = ({ isSidebarOpen, sidebarRef }) => {
                       </TaskList>
                     )}
                   </Droppable>
+
                 </CardState>
               );
             })}

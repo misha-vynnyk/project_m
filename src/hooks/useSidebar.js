@@ -20,5 +20,5 @@ export const useSidebar = (initialState = false) => {
     }
   }, [isMobile]);
 
-  return [isSidebarOpen, toggleSidebar];
+  return [isSidebarOpen, toggleSidebar, isMobile];
 };

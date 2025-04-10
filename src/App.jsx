@@ -4,21 +4,23 @@ import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import { useSidebar } from "./hooks/useSidebar";
 import { theme } from "./global_styles/theme";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import OutsideClick from "./hooks/outsideClick";
+import { loginContext } from "./context/loginContext";
+import LoginPage from "./components/LoginPage/LoginPage";
 
 const App = () => {
-  const [isSidebarOpen, toggleSidebar] = useSidebar();
+  const [isSidebarOpen, toggleSidebar, isMobile] = useSidebar();
   const headerRef = useRef(null);
   const sidebarRef = useRef(null);
 
   const isOutsideClick = OutsideClick([headerRef, sidebarRef]);
 
-  if (isOutsideClick && isSidebarOpen) {
+  if (isOutsideClick && isSidebarOpen && isMobile) {
     toggleSidebar();
   }
 
-  console.log("isOutsideClick", isOutsideClick);
+  const { isLoggedIn } = useContext(loginContext);
 
   return (
     <ThemeProvider theme={theme}>
@@ -28,7 +30,11 @@ const App = () => {
         onToggleSidebar={toggleSidebar}
         isSidebarOpen={isSidebarOpen}
       />
-      <Main isSidebarOpen={isSidebarOpen} sidebarRef={sidebarRef} />
+      {isLoggedIn ? (
+        <Main isSidebarOpen={isSidebarOpen} sidebarRef={sidebarRef} />
+      ) : (
+        <LoginPage />
+      )}
     </ThemeProvider>
   );
 };
