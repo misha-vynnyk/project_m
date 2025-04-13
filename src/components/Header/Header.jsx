@@ -7,9 +7,11 @@ import { HeaderContainer, HeaderMainWrapper } from "./Header.styled";
 import PropTypes from "prop-types";
 import { SearchBar } from "./SearchBar/SearchBar";
 import { UserBlock } from "./UserBlock/UserBlock";
-import { forwardRef } from "react";
+import { forwardRef, useContext } from "react";
+import { loginContext } from "../../context/loginContext";
 
 const Header = forwardRef(({ onToggleSidebar, isSidebarOpen }, ref) => {
+  const { isLoggedIn } = useContext(loginContext);
   return (
     <HeaderContainer ref={ref}>
       <SidebarTopWrapper>
@@ -18,19 +20,27 @@ const Header = forwardRef(({ onToggleSidebar, isSidebarOpen }, ref) => {
           <span>Project M.</span>
         </Logo>
 
-        <SidebarOpener
-          className="sidebar-toggle"
-          onClick={onToggleSidebar}
-          $isSidebarOpen={isSidebarOpen}
-        >
-          <img src="icon/arrow_left.svg" alt="Sidebar opener" />
-        </SidebarOpener>
+        {isLoggedIn ? (
+          <SidebarOpener
+            className="sidebar-toggle"
+            onClick={onToggleSidebar}
+            $isSidebarOpen={isSidebarOpen}
+          >
+            <img src="icon/arrow_left.svg" alt="Sidebar opener" />
+          </SidebarOpener>
+        ) : (
+          ""
+        )}
       </SidebarTopWrapper>
 
-      <HeaderMainWrapper>
-        <SearchBar />
-        <UserBlock />
-      </HeaderMainWrapper>
+      {isLoggedIn ? (
+        <HeaderMainWrapper>
+          <SearchBar />
+          <UserBlock />
+        </HeaderMainWrapper>
+      ) : (
+        ""
+      )}
     </HeaderContainer>
   );
 });

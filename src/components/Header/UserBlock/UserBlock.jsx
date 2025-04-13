@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   UserBlockContainer,
   UserInfo,
@@ -13,6 +13,8 @@ import {
   Wrapper,
   WrapperUserInfo,
 } from "./UserBlock.styled";
+import { ButtonLogout } from "../../LoginPage/LoginPage.styled";
+import { loginContext } from "../../../context/loginContext";
 
 const userMenu = [
   {
@@ -46,6 +48,8 @@ const userInfo = [
 
 export const UserBlock = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+    const { handleSubmit } = useContext(loginContext);
+  
 
   const handleUserMenuOpen = () => {
     setIsUserMenuOpen((prevState) => !prevState);
@@ -74,6 +78,8 @@ export const UserBlock = () => {
             <UserInfoAvatar src={avatar} alt={userName} role="presentation" />
           </Wrapper>
         ))}
+        <ButtonLogout onClick={handleSubmit}>Logout</ButtonLogout>
+
         <UserMenuOpener
           onClick={handleUserMenuOpen}
           aria-haspopup="true"
@@ -84,9 +90,7 @@ export const UserBlock = () => {
       </UserInfo>
       {isUserMenuOpen && (
         <Wrapper>
-          <UserMenuPupUp aria-label="User menu popup">
-
-          </UserMenuPupUp>
+          <UserMenuPupUp aria-label="User menu popup"></UserMenuPupUp>
         </Wrapper>
       )}
     </UserBlockContainer>
