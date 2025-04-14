@@ -1,12 +1,11 @@
 import styled from "styled-components";
 
 export const LoginStyled = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  padding: 20px;
+  position: absolute;
+  transform: translateX(-50%);
+  top: 50%;
+  left: 50%;
+  /* z-index: 999; */
 `;
 
 export const LoginForm = styled.form`
@@ -14,13 +13,13 @@ export const LoginForm = styled.form`
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
+  /* width: 100%; */
+  min-width: 200px;
 `;
 
 export const FormTitle = styled.h2`
   text-align: center;
-  color: #333;
+  color: ${({ theme }) => theme.colors.lightText};
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
 `;
@@ -46,7 +45,7 @@ export const Input = styled.input`
 export const Button = styled.button`
   width: 100%;
   padding: 12px;
-  background: #5030e5;
+  background: ${({ theme }) => theme.colors.darkBlue};
   color: white;
   border: none;
   border-radius: 6px;
@@ -55,22 +54,22 @@ export const Button = styled.button`
   transition: background 0.3s ease;
 
   &:hover {
-    background: #5239c3;
+    background: ${({ theme }) => theme.colors.lightBlue};
   }
 `;
 
 export const ButtonLogout = styled(Button)`
   /* width: 10rem; */
-`
+`;
 
 export const SwitchText = styled.p`
   text-align: center;
   margin-top: 1rem;
-  color: #666;
+  color: ${({ theme }) => theme.colors.lightText};
 `;
 
 export const SwitchLink = styled.span`
-  color: #4a90e2;
+  color: ${({ theme }) => theme.colors.darkBlue};
   cursor: pointer;
   font-weight: 500;
 

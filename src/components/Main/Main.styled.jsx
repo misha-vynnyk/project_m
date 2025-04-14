@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-`;
+export const Container = styled.div``;
 
 export const MainStyled = styled.main`
+  display: flex;
+  justify-content: center;
   margin-top: ${({ theme }) => theme.headerSize.desktopHeight};
 
   @media (max-width: ${({ theme }) => theme.mobile}) {
@@ -16,6 +17,7 @@ export const MainStyled = styled.main`
 `;
 
 export const MainContent = styled.div`
+  /* width: 1280px; */
   margin-left: ${({ $isSidebarOpen }) => ($isSidebarOpen ? "16rem" : "0")};
   transition: all 0.3s ease-in-out;
   padding: 2rem;
@@ -211,4 +213,4 @@ export const ProjectFooterCountFiles = styled.div`
 
 export const DropInfo = styled.div`
   height: 100%;
-`
+`;

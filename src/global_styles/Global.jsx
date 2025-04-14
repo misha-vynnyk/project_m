@@ -1,4 +1,8 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+
+export const ContainerStyled = styled.div`
+  width: 1500px;
+`;
 
 export const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
@@ -72,8 +76,7 @@ export const GlobalStyle = createGlobalStyle`
     background-color: ${({ theme }) => theme.colors.primaryLightBackground};
 
   @media (max-width: ${({ theme }) => theme.mobile}) {
-    overflow-y: ${({ $isSidebarOpen }) =>
-      $isSidebarOpen ? "hidden" : ""};
+    overflow-y: ${({ $isSidebarOpen }) => ($isSidebarOpen ? "hidden" : "")};
   }
   }
 

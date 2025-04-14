@@ -30,9 +30,16 @@ export const SidebarContainer = styled.div`
     $isSidebarOpen ? "translateX(0)" : "translateX(-100%)"};
   transition: transform 0.3s ease-in-out;
 
+  margin-top: ${({ theme }) => theme.headerSize.desktopHeight};
+
   @media (max-width: ${({ theme }) => theme.mobile}) {
+    margin-top: ${({ theme }) => theme.headerSize.mobileHeight};
     transform: ${({ $isSidebarOpen }) =>
       $isSidebarOpen ? "translateX(0)" : "translateX(-100)"};
+  }
+
+  @media (max-width: ${({ theme }) => theme.tablet}) {
+    margin-top: ${({ theme }) => theme.headerSize.tabletHeight};
   }
 `;
 

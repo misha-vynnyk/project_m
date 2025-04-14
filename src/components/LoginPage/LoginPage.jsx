@@ -19,11 +19,6 @@ const LoginPage = () => {
     confirmPassword: "",
   });
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   setIsLogin(prev => !prev)
-  // };
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -72,12 +67,12 @@ const LoginPage = () => {
           </InputGroup>
         )}
 
-        <Button type="submit">{isLogin ? "Login" : "Register"}</Button>
+        <Button type="submit">{isLogin ? "Sign in" : "Sign up"}</Button>
 
         <SwitchText>
           {isLogin ? "Don't have an account? " : "Already have an account? "}
           <SwitchLink onClick={() => setIsLogin(!isLogin)}>
-            {isLogin ? "Register" : "Login"}
+            {isLogin ? "Sign up" : "Sign in"}
           </SwitchLink>
         </SwitchText>
       </LoginForm>

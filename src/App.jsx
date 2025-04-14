@@ -7,7 +7,8 @@ import { theme } from "./global_styles/theme";
 import { useContext, useRef } from "react";
 import OutsideClick from "./hooks/outsideClick";
 import { loginContext } from "./context/loginContext";
-import LoginPage from "./components/LoginPage/LoginPage";
+import LandingPage from "./components/Main/LandingPage/LandingPage";
+import Sidebar from "./components/Sidebar/Sidebar";
 
 const App = () => {
   const [isSidebarOpen, toggleSidebar, isMobile] = useSidebar();
@@ -31,9 +32,12 @@ const App = () => {
         isSidebarOpen={isSidebarOpen}
       />
       {isLoggedIn ? (
-        <Main isSidebarOpen={isSidebarOpen} sidebarRef={sidebarRef} />
+        <>
+          <Sidebar isSidebarOpen={isSidebarOpen} ref={sidebarRef} />
+          <Main isSidebarOpen={isSidebarOpen} sidebarRef={sidebarRef} />
+        </>
       ) : (
-        <LoginPage />
+          <LandingPage />
       )}
     </ThemeProvider>
   );

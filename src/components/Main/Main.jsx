@@ -4,8 +4,6 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import initialData from "../../data/initial-data";
 
-import Sidebar from "../Sidebar/Sidebar";
-
 import {
   AddProjectButton,
   AddProjectButtonImg,
@@ -34,8 +32,9 @@ import {
   DropInfo,
   TaskList,
 } from "./Main.styled";
+import { ContainerStyled } from "../../global_styles/Global";
 
-const Main = ({ isSidebarOpen, sidebarRef }) => {
+const Main = ({ isSidebarOpen }) => {
   const [initialDataArray, setInitialDataArray] = useState(initialData);
 
   const moveTaskBetweenColumns = (
@@ -117,135 +116,135 @@ const Main = ({ isSidebarOpen, sidebarRef }) => {
 
   return (
     <MainStyled>
-      <Sidebar isSidebarOpen={isSidebarOpen} ref={sidebarRef}/>
-      <MainContent $isSidebarOpen={isSidebarOpen}>
-        <CardStateContainer>
-          <DragDropContext onDragEnd={onDragEnd}>
-            {initialDataArray.columnOrder.map((columnId) => {
-              const column = initialDataArray.columns[columnId];
-              const tasks = column.taskIds.map(
-                (taskId) => initialDataArray.tasks[taskId]
-              );
-              return (
-                <CardState key={column.id} $column={column} $tasks={tasks}>
-                  <TitleStateWrapper $lineColor={column.lineColor}>
-                    <TitleCardState $lineColor={column.lineColor}>
-                      {column.title}
-                      <CountProjectsInState aria-label="State Project">
-                        {column.taskIds.length}
-                      </CountProjectsInState>
-                    </TitleCardState>
-                    {column.id === "column-1" && (
-                      <AddProjectButton
-                        aria-haspopup="dialog"
-                        aria-controls="new-project-popup"
-                        aria-label="Create new project"
-                      >
-                        <AddProjectButtonImg
-                          src="icon/add-square_icon.svg"
-                          aria-hidden="true"
-                        />
-                      </AddProjectButton>
-                    )}
-                  </TitleStateWrapper>
+      <ContainerStyled>
+        <MainContent $isSidebarOpen={isSidebarOpen}>
+          <CardStateContainer>
+            <DragDropContext onDragEnd={onDragEnd}>
+              {initialDataArray.columnOrder.map((columnId) => {
+                const column = initialDataArray.columns[columnId];
+                const tasks = column.taskIds.map(
+                  (taskId) => initialDataArray.tasks[taskId]
+                );
+                return (
+                  <CardState key={column.id} $column={column} $tasks={tasks}>
+                    <TitleStateWrapper $lineColor={column.lineColor}>
+                      <TitleCardState $lineColor={column.lineColor}>
+                        {column.title}
+                        <CountProjectsInState aria-label="State Project">
+                          {column.taskIds.length}
+                        </CountProjectsInState>
+                      </TitleCardState>
+                      {column.id === "column-1" && (
+                        <AddProjectButton
+                          aria-haspopup="dialog"
+                          aria-controls="new-project-popup"
+                          aria-label="Create new project"
+                        >
+                          <AddProjectButtonImg
+                            src="icon/add-square_icon.svg"
+                            aria-hidden="true"
+                          />
+                        </AddProjectButton>
+                      )}
+                    </TitleStateWrapper>
 
-                  <Droppable droppableId={column.id}>
-                    {(provided) => (
-                      <TaskList
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                      >
-                        {tasks.map((task, index) => (
-                          <Draggable
-                            draggableId={task.id}
-                            key={task.id}
-                            index={index}
-                          >
-                            {(provided) => (
-                              <ProjectsCard
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                ref={provided.innerRef}
-                              >
-                                <ProjectHeaderContainer>
-                                  <ProjectLevel
-                                    aria-label="Project level"
-                                    $levelColor={task.levelColor}
-                                    $levelBg={task.levelBackgroundColor}
-                                  >
-                                    {task.level}
-                                  </ProjectLevel>
-                                  <ProjectMenu role="button">
-                                    <IconProjectMenu
-                                      src="icon/dots_icon.svg"
-                                      alt="Menu"
-                                    />
-                                  </ProjectMenu>
-                                </ProjectHeaderContainer>
-                                <ProjectDescriptionContainer>
-                                  <ProjectTitle>{task.content}</ProjectTitle>
-                                  {task?.image ? (
-                                    <Container>
-                                      <ProjectImage
-                                        src={task.image}
-                                        alt={task.content || "Project image"} // Use title as alt text
+                    <Droppable droppableId={column.id}>
+                      {(provided) => (
+                        <TaskList
+                          ref={provided.innerRef}
+                          {...provided.droppableProps}
+                        >
+                          {tasks.map((task, index) => (
+                            <Draggable
+                              draggableId={task.id}
+                              key={task.id}
+                              index={index}
+                            >
+                              {(provided) => (
+                                <ProjectsCard
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                  ref={provided.innerRef}
+                                >
+                                  <ProjectHeaderContainer>
+                                    <ProjectLevel
+                                      aria-label="Project level"
+                                      $levelColor={task.levelColor}
+                                      $levelBg={task.levelBackgroundColor}
+                                    >
+                                      {task.level}
+                                    </ProjectLevel>
+                                    <ProjectMenu role="button">
+                                      <IconProjectMenu
+                                        src="icon/dots_icon.svg"
+                                        alt="Menu"
                                       />
-                                    </Container>
-                                  ) : (
-                                    <ProjectDescription>
-                                      {task.description ||
-                                        "No Description Available"}
-                                    </ProjectDescription>
-                                  )}
-                                </ProjectDescriptionContainer>
+                                    </ProjectMenu>
+                                  </ProjectHeaderContainer>
+                                  <ProjectDescriptionContainer>
+                                    <ProjectTitle>{task.content}</ProjectTitle>
+                                    {task?.image ? (
+                                      <Container>
+                                        <ProjectImage
+                                          src={task.image}
+                                          alt={task.content || "Project image"} // Use title as alt text
+                                        />
+                                      </Container>
+                                    ) : (
+                                      <ProjectDescription>
+                                        {task.description ||
+                                          "No Description Available"}
+                                      </ProjectDescription>
+                                    )}
+                                  </ProjectDescriptionContainer>
 
-                                <ProjectFooterContainer>
-                                  <ProjectFooterPeople>
-                                    <img
-                                      src="image/Group 633.png"
-                                      alt="Persons"
-                                    />
-                                  </ProjectFooterPeople>
-                                  <ProjectFooterInfoContainer>
-                                    <ProjectFooterComments>
+                                  <ProjectFooterContainer>
+                                    <ProjectFooterPeople>
                                       <img
-                                        src="icon/comments_icon.svg"
-                                        alt="Comments"
+                                        src="image/Group 633.png"
+                                        alt="Persons"
                                       />
-                                      10 comments
-                                    </ProjectFooterComments>
+                                    </ProjectFooterPeople>
+                                    <ProjectFooterInfoContainer>
+                                      <ProjectFooterComments>
+                                        <img
+                                          src="icon/comments_icon.svg"
+                                          alt="Comments"
+                                        />
+                                        10 comments
+                                      </ProjectFooterComments>
 
-                                    <ProjectFooterCountFiles>
-                                      <img
-                                        src="icon/folder_icon.svg"
-                                        alt="Folder"
-                                      />
-                                      3 files
-                                    </ProjectFooterCountFiles>
-                                  </ProjectFooterInfoContainer>
-                                </ProjectFooterContainer>
-                              </ProjectsCard>
-                            )}
-                          </Draggable>
-                        ))}
-                        {provided.placeholder}
-                        {column.taskIds.length === 0 && (
-                          <DropInfo
-                            style={{ textAlign: "center", color: "#aaa" }}
-                          >
-                            Drop tasks here
-                          </DropInfo>
-                        )}
-                      </TaskList>
-                    )}
-                  </Droppable>
-
-                </CardState>
-              );
-            })}
-          </DragDropContext>
-        </CardStateContainer>
-      </MainContent>
+                                      <ProjectFooterCountFiles>
+                                        <img
+                                          src="icon/folder_icon.svg"
+                                          alt="Folder"
+                                        />
+                                        3 files
+                                      </ProjectFooterCountFiles>
+                                    </ProjectFooterInfoContainer>
+                                  </ProjectFooterContainer>
+                                </ProjectsCard>
+                              )}
+                            </Draggable>
+                          ))}
+                          {provided.placeholder}
+                          {column.taskIds.length === 0 && (
+                            <DropInfo
+                              style={{ textAlign: "center", color: "#aaa" }}
+                            >
+                              Drop tasks here
+                            </DropInfo>
+                          )}
+                        </TaskList>
+                      )}
+                    </Droppable>
+                  </CardState>
+                );
+              })}
+            </DragDropContext>
+          </CardStateContainer>
+        </MainContent>
+      </ContainerStyled>
     </MainStyled>
   );
 };

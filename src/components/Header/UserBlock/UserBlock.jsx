@@ -78,8 +78,6 @@ export const UserBlock = () => {
             <UserInfoAvatar src={avatar} alt={userName} role="presentation" />
           </Wrapper>
         ))}
-        <ButtonLogout onClick={handleSubmit}>Logout</ButtonLogout>
-
         <UserMenuOpener
           onClick={handleUserMenuOpen}
           aria-haspopup="true"
@@ -90,7 +88,9 @@ export const UserBlock = () => {
       </UserInfo>
       {isUserMenuOpen && (
         <Wrapper>
-          <UserMenuPupUp aria-label="User menu popup"></UserMenuPupUp>
+          <UserMenuPupUp aria-label="User menu popup">
+            <ButtonLogout onClick={handleSubmit}>Log out</ButtonLogout>
+          </UserMenuPupUp>
         </Wrapper>
       )}
     </UserBlockContainer>
