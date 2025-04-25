@@ -14,7 +14,7 @@ import {
   WrapperUserInfo,
 } from "./UserBlock.styled";
 import { ButtonLogout } from "../../LoginPage/LoginPage.styled";
-import { loginContext } from "../../../context/loginContext";
+import { LoginContext } from "../../../context/LoginContext";
 
 const userMenu = [
   {
@@ -48,7 +48,7 @@ const userInfo = [
 
 export const UserBlock = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-    const { handleSubmit } = useContext(loginContext);
+    const { handleSubmit } = useContext(LoginContext);
   
 
   const handleUserMenuOpen = () => {

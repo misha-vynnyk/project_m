@@ -1,22 +1,27 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { loginContext } from "./loginContext";
+import { LoginContext } from "./LoginContext";
 
 export const LoginProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
+  const [showLoginForm, setShowLoginForm] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setIsLoggedIn((prev) => !prev);
+  const handleOpenLoginForm = () => {
+    setShowLoginForm((prev) => !prev);
   };
 
   return (
-    <loginContext.Provider
-      value={{ isLoggedIn, setIsLoggedIn, isLogin, setIsLogin, handleSubmit }}
+    <LoginContext.Provider
+      value={{
+        isLoggedIn,
+        setIsLoggedIn,
+        showLoginForm,
+        setShowLoginForm,
+        handleOpenLoginForm,
+      }}
     >
       {children}
-    </loginContext.Provider>
+    </LoginContext.Provider>
   );
 };
 

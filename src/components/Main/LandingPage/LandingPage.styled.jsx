@@ -37,12 +37,14 @@ export const GetStartedStyled = styled.section`
 `;
 
 export const HeroTitleStyled = styled.h1`
+  margin-bottom: 1rem;
   font-weight: 500;
   font-size: 3.5rem;
   line-height: 1.1;
 `;
 
 export const HeroDescriptionStyled = styled.p`
+  margin-bottom: 2rem;
   font-weight: 300;
   font-size: 1.3rem;
   line-height: 1.5;

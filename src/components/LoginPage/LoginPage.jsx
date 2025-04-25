@@ -9,15 +9,39 @@ import {
   SwitchText,
   SwitchLink,
 } from "./LoginPage.styled";
-import { loginContext } from "../../context/loginContext";
+import { LoginContext } from "../../context/LoginContext";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
+// import { auth } from "../../firebase/firebase";
 
 const LoginPage = () => {
-  const { isLogin, setIsLogin, handleSubmit } = useContext(loginContext);
+  // const { isLogin, setIsLogin } = useContext(LoginContext);
+  // const { showLoginForm, setShowLoginForm } = useContext(loginContext);
+  const { setIsLoggedIn } = useContext(LoginContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     confirmPassword: "",
   });
+  const [mode, setMode] = useState("login");
+
+  const handleToggleForm = () => {
+    setMode((prevMode) => (prevMode === "login" ? "register" : "login"));
+  };
+
+  // const [error, setError] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // createUserWithEmailAndPassword(auth, formData.email, formData.password)
+    //   .then((userCredential) => {
+    //     const user = userCredential.user;
+    //     console.log(user);
+    //   })
+    //   .catch((error) => console.log(error));
+
+    setIsLoggedIn((prev) => !prev);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,7 +54,7 @@ const LoginPage = () => {
   return (
     <LoginStyled>
       <LoginForm onSubmit={handleSubmit}>
-        <FormTitle>{isLogin ? "Login" : "Register"}</FormTitle>
+        <FormTitle>{mode === "login" ? "Login" : "Register"}</FormTitle>
 
         <InputGroup>
           <Input
@@ -54,7 +78,7 @@ const LoginPage = () => {
           />
         </InputGroup>
 
-        {!isLogin && (
+        {mode === "register" && (
           <InputGroup>
             <Input
               type="password"
@@ -67,12 +91,18 @@ const LoginPage = () => {
           </InputGroup>
         )}
 
-        <Button type="submit">{isLogin ? "Sign in" : "Sign up"}</Button>
+        {/* <p style={{ color: "red" }}>{error}</p> */}
+
+        <Button type="submit">
+          {mode === "login" ? "Sign in" : "Sign up"}
+        </Button>
 
         <SwitchText>
-          {isLogin ? "Don't have an account? " : "Already have an account? "}
-          <SwitchLink onClick={() => setIsLogin(!isLogin)}>
-            {isLogin ? "Sign up" : "Sign in"}
+          {mode === "login"
+            ? "Don't have an account? "
+            : "Already have an account? "}
+          <SwitchLink onClick={handleToggleForm}>
+            {mode === "login" ? "Sign up" : "Sign in"}
           </SwitchLink>
         </SwitchText>
       </LoginForm>

@@ -1,9 +1,9 @@
 import { createContext } from "react";
 
-export const loginContext = createContext({
+export const LoginContext = createContext({
   isLoggedIn: false,
   setIsLoggedIn: () => {},
-  isLogin: true,
-  setIsLogin: () => { },
-  handleSubmit: () => {},
+  showLoginForm: false,
+  setShowLoginForm: () => {},
+  handleOpenLoginForm: () => {},
 });

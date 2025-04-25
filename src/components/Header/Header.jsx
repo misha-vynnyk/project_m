@@ -8,10 +8,10 @@ import PropTypes from "prop-types";
 import { SearchBar } from "./SearchBar/SearchBar";
 import { UserBlock } from "./UserBlock/UserBlock";
 import { forwardRef, useContext } from "react";
-import { loginContext } from "../../context/loginContext";
+import { LoginContext } from "../../context/LoginContext";
 
 const Header = forwardRef(({ onToggleSidebar, isSidebarOpen }, ref) => {
-  const { isLoggedIn } = useContext(loginContext);
+  const { isLoggedIn } = useContext(LoginContext);
   return (
     <HeaderContainer ref={ref}>
       <SidebarTopWrapper>
