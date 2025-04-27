@@ -14,7 +14,12 @@ import {
 import { LoginContext } from "../../../context/LoginContext";
 
 const LandingPage = () => {
-  const { showLoginForm, handleOpenLoginForm } = useContext(LoginContext);
+  const { showLoginForm, setShowLoginForm } = useContext(LoginContext);
+
+
+  const handleOpenLoginForm = () => {
+    setShowLoginForm((prev) => !prev);
+  };
 
   return (
     <LandingPageStyled>

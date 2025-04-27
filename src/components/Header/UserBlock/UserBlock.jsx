@@ -48,11 +48,13 @@ const userInfo = [
 
 export const UserBlock = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-    const { handleSubmit } = useContext(LoginContext);
-  
+  const { setIsLoggedIn } = useContext(LoginContext);
 
   const handleUserMenuOpen = () => {
     setIsUserMenuOpen((prevState) => !prevState);
+  };
+  const handleLogOut = () => {
+    setIsLoggedIn((prev) => !prev);
   };
   return (
     <UserBlockContainer role="region" aria-label="User menu block">
@@ -89,7 +91,7 @@ export const UserBlock = () => {
       {isUserMenuOpen && (
         <Wrapper>
           <UserMenuPupUp aria-label="User menu popup">
-            <ButtonLogout onClick={handleSubmit}>Log out</ButtonLogout>
+            <ButtonLogout onClick={handleLogOut}>Log out</ButtonLogout>
           </UserMenuPupUp>
         </Wrapper>
       )}

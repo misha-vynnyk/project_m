@@ -10,25 +10,26 @@ import {
   SwitchLink,
 } from "./LoginPage.styled";
 import { LoginContext } from "../../context/LoginContext";
+import CloseButton from "../Button/CloseButton/CloseButton";
 // import { createUserWithEmailAndPassword } from "firebase/auth";
 // import { auth } from "../../firebase/firebase";
 
 const LoginPage = () => {
-  // const { isLogin, setIsLogin } = useContext(LoginContext);
-  // const { showLoginForm, setShowLoginForm } = useContext(loginContext);
-  const { setIsLoggedIn } = useContext(LoginContext);
+  const { setShowLoginForm } = useContext(LoginContext);
+  const { setIsLoggedIn, mode, setMode } = useContext(LoginContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     confirmPassword: "",
   });
-  const [mode, setMode] = useState("login");
 
   const handleToggleForm = () => {
     setMode((prevMode) => (prevMode === "login" ? "register" : "login"));
   };
 
-  // const [error, setError] = useState("");
+  const handleCloseLoginForm = () => {
+    setShowLoginForm((prev) => !prev);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -41,6 +42,7 @@ const LoginPage = () => {
     //   .catch((error) => console.log(error));
 
     setIsLoggedIn((prev) => !prev);
+    setShowLoginForm(false);
   };
 
   const handleInputChange = (e) => {
@@ -54,6 +56,7 @@ const LoginPage = () => {
   return (
     <LoginStyled>
       <LoginForm onSubmit={handleSubmit}>
+        <CloseButton onClick={handleCloseLoginForm} />
         <FormTitle>{mode === "login" ? "Login" : "Register"}</FormTitle>
 
         <InputGroup>

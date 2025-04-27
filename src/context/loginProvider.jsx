@@ -5,10 +5,7 @@ import { LoginContext } from "./LoginContext";
 export const LoginProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
-
-  const handleOpenLoginForm = () => {
-    setShowLoginForm((prev) => !prev);
-  };
+  const [mode, setMode] = useState("login");
 
   return (
     <LoginContext.Provider
@@ -17,7 +14,8 @@ export const LoginProvider = ({ children }) => {
         setIsLoggedIn,
         showLoginForm,
         setShowLoginForm,
-        handleOpenLoginForm,
+        mode,
+        setMode,
       }}
     >
       {children}
