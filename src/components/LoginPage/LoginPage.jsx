@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   LoginForm,
   LoginStyled,
@@ -8,20 +8,43 @@ import {
   Button,
   SwitchText,
   SwitchLink,
+  AlarmMessage,
 } from "./LoginPage.styled";
 import { LoginContext } from "../../context/LoginContext";
 import CloseButton from "../Button/CloseButton/CloseButton";
-// import { createUserWithEmailAndPassword } from "firebase/auth";
-// import { auth } from "../../firebase/firebase";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../../firebase/firebase";
 
 const LoginPage = () => {
-  const { setShowLoginForm } = useContext(LoginContext);
-  const { setIsLoggedIn, mode, setMode } = useContext(LoginContext);
+  const { setIsLoggedIn, mode, setMode, setShowLoginForm, setLoggedUser } =
+    useContext(LoginContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     confirmPassword: "",
   });
+
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    const listen = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setLoggedUser(user);
+        setIsLoggedIn(true);
+      } else {
+        setLoggedUser(null);
+        setIsLoggedIn(false);
+      }
+      console.log("User:", user);
+      
+    });
+
+    return () => listen();
+  }, []);
 
   const handleToggleForm = () => {
     setMode((prevMode) => (prevMode === "login" ? "register" : "login"));
@@ -34,15 +57,38 @@ const LoginPage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // createUserWithEmailAndPassword(auth, formData.email, formData.password)
-    //   .then((userCredential) => {
-    //     const user = userCredential.user;
-    //     console.log(user);
-    //   })
-    //   .catch((error) => console.log(error));
+    if (mode === "register" && formData.password !== formData.confirmPassword) {
+      setErrorMessage("Passwords do not match");
+      setTimeout(() => setErrorMessage(""), 5000);
+      return;
+    }
 
-    setIsLoggedIn((prev) => !prev);
-    setShowLoginForm(false);
+    switch (mode) {
+      case "login":
+        signInWithEmailAndPassword(auth, formData.email, formData.password)
+          .then(() => {
+            setIsLoggedIn(true);
+            setShowLoginForm(false);
+          })
+          .catch((error) => {
+            console.log(error);
+            setIsLoggedIn(false);
+            setErrorMessage("User not defined");
+            return;
+          })
+          .finally(() => {
+            setTimeout(() => setErrorMessage(""), 5000);
+          });
+        break;
+      case "register":
+        createUserWithEmailAndPassword(auth, formData.email, formData.password)
+          .then(() => {
+            setIsLoggedIn(true);
+            setShowLoginForm(false);
+          })
+          .catch((error) => setErrorMessage(error));
+        break;
+    }
   };
 
   const handleInputChange = (e) => {
@@ -58,6 +104,13 @@ const LoginPage = () => {
       <LoginForm onSubmit={handleSubmit}>
         <CloseButton onClick={handleCloseLoginForm} />
         <FormTitle>{mode === "login" ? "Login" : "Register"}</FormTitle>
+
+        <AlarmMessage>
+          To log in, use the email: <br /> projectm@example.com <br /> and{" "}
+          <br />
+          password: 123456
+        </AlarmMessage>
+        {errorMessage && <AlarmMessage>{errorMessage}</AlarmMessage>}
 
         <InputGroup>
           <Input

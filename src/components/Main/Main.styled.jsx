@@ -17,16 +17,16 @@ export const MainStyled = styled.main`
 `;
 
 export const MainContent = styled.div`
-  /* width: 1280px; */
   margin-left: ${({ $isSidebarOpen }) => ($isSidebarOpen ? "16rem" : "0")};
   transition: all 0.3s ease-in-out;
   padding: 2rem;
 
-  @media (max-width: ${({ theme }) => theme.mobile}) {
+  @media (max-width: ${({ theme }) => theme.mobileL}) {
     padding: 0.5rem;
     margin-left: ${({ $isSidebarOpen }) => ($isSidebarOpen ? "0" : "0")};
     transition: filter 0.3s ease-in-out;
-    filter: ${({ $isSidebarOpen }) => ($isSidebarOpen ? "blur(5px)" : "none")};
+    filter: ${({ $isSidebarOpen }) =>
+      $isSidebarOpen ? "blur(5px)" : "none"};
   }
 `;
 

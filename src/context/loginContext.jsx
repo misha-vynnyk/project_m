@@ -5,6 +5,8 @@ export const LoginContext = createContext({
   setIsLoggedIn: () => {},
   showLoginForm: false,
   setShowLoginForm: () => {},
-  mode: 'login',
+  mode: "login",
   setMode: () => {},
+  loggedUser: null,
+  setLoggedUser: () => {},
 });

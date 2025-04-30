@@ -1,15 +1,15 @@
-import { BackgroundLight, StyledNoteSidebar } from "./NoteSidebar.styled"
+import { BackgroundLight, NoteDescription, NoteInput, NoteTitle, StyledNoteSidebar } from "./NoteSidebar.styled"
 
 export const NoteSidebar = () => {
   return (
     <StyledNoteSidebar>
       <BackgroundLight/>
-      <h3>Thoughts Time</h3>
-      <p>
+      <NoteTitle>Thoughts Time</NoteTitle>
+      <NoteDescription>
         We don’t have any notice for you, till then you can share your thoughts
         with your peers.
-      </p>
-      <input type="text" placeholder="Write a message" />
+      </NoteDescription>
+      <NoteInput type="text" placeholder="Write a message" />
     </StyledNoteSidebar>
   );
 }

@@ -9,35 +9,6 @@ export const StyledNoteSidebar = styled.div`
 
   background: ${({ theme }) => theme.colors.secondaryLightBackground};
 
-  h3 {
-    color: ${({ theme }) => theme.colors.darkText};
-    font-family: ${({ theme }) => theme.fonts.primaryFont};
-    font-size: 1rem;
-    font-weight: 500;
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-
-  p {
-    color: ${({ theme }) => theme.colors.lightText};
-    font-family: ${({ theme }) => theme.fonts.primaryFont};
-    font-size: 0.8rem;
-    font-weight: 400;
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-
-  input {
-    width: 10rem;
-    height: 3rem;
-    border-radius: 16px;
-    color: ${({ theme }) => theme.colors.darkText};
-    font-family: ${({ theme }) => theme.fonts.primaryFont};
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-align: center;
-  }
-
   &::before {
     content: "";
     position: absolute;
@@ -78,4 +49,31 @@ export const BackgroundLight = styled.div`
   height: 4.4rem;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.colors.secondaryLightBackground};
-`
+`;
+
+export const NoteTitle = styled.h3`
+  color: ${({ theme }) => theme.colors.darkText};
+  font-family: ${({ theme }) => theme.fonts.primaryFont};
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 1rem;
+`;
+export const NoteDescription = styled.p`
+  color: ${({ theme }) => theme.colors.lightText};
+  font-family: ${({ theme }) => theme.fonts.primaryFont};
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 1rem;
+`;
+export const NoteInput = styled.input`
+  width: 10rem;
+  height: 3rem;
+  border-radius: 16px;
+  color: ${({ theme }) => theme.colors.darkText};
+  font-family: ${({ theme }) => theme.fonts.primaryFont};
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+`;

@@ -15,6 +15,8 @@ import {
 } from "./UserBlock.styled";
 import { ButtonLogout } from "../../LoginPage/LoginPage.styled";
 import { LoginContext } from "../../../context/LoginContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../firebase/firebase";
 
 const userMenu = [
   {
@@ -40,7 +42,7 @@ const userMenu = [
 const userInfo = [
   {
     id: 1,
-    userName: "Joanne Doe",
+    userName: "Lee Song",
     country: "United States",
     avatar: "image/avatar-1.jpeg",
   },
@@ -48,14 +50,25 @@ const userInfo = [
 
 export const UserBlock = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const { setIsLoggedIn } = useContext(LoginContext);
+  const { setIsLoggedIn, loggedUser, setShowLoginForm } =
+    useContext(LoginContext);
 
   const handleUserMenuOpen = () => {
     setIsUserMenuOpen((prevState) => !prevState);
   };
+
   const handleLogOut = () => {
-    setIsLoggedIn((prev) => !prev);
+    signOut(auth)
+      .then(() => {
+        setIsLoggedIn(false);
+        setShowLoginForm(false);
+        console.log("LogOut:");
+      })
+      .catch((error) => console.log(error));
   };
+
+  console.log("User:", loggedUser);
+
   return (
     <UserBlockContainer role="region" aria-label="User menu block">
       <UserMenu aria-label="User menu navigation">

@@ -6,6 +6,7 @@ export const LoginProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [mode, setMode] = useState("login");
+  const [loggedUser, setLoggedUser] = useState(null);
 
   return (
     <LoginContext.Provider
@@ -16,6 +17,8 @@ export const LoginProvider = ({ children }) => {
         setShowLoginForm,
         mode,
         setMode,
+        loggedUser,
+        setLoggedUser,
       }}
     >
       {children}
