@@ -15,8 +15,8 @@ export const theme = {
   },
 
   colors: {
-    primaryLightBackground: "#FFFFFF",
-    secondaryLightBackground: "#F5F5F5",
+    primaryLightBackground: "#fff",
+    secondaryLightBackground: "#f5f5f5",
     primaryDarkBackground: "#0D062D",
     secondaryDarkBackground: "#E0E0E0",
     hoverBackground: "rgba(80, 48, 229, 0.08)",

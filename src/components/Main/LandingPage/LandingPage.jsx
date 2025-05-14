@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { ContainerStyled } from "../../../global_styles/Global";
 import LoginPage from "../../LoginPage/LoginPage";
 import {
   GetStartedStyled,
@@ -23,7 +22,6 @@ const LandingPage = () => {
 
   return (
     <LandingPageStyled>
-      <ContainerStyled>
         {showLoginForm && <LoginPage />}
         <HeroSection>
           <GetStartedStyled>
@@ -44,7 +42,6 @@ const LandingPage = () => {
             <ImgStyled src="image/Hero_img.png" alt="Hero image" />
           </ImageStyled>
         </HeroSection>
-      </ContainerStyled>
     </LandingPageStyled>
   );
 };

@@ -9,6 +9,7 @@ import {
   SwitchText,
   SwitchLink,
   AlarmMessage,
+  FormButtonCloseContainer,
 } from "./LoginPage.styled";
 import { LoginContext } from "../../context/LoginContext";
 import CloseButton from "../Button/CloseButton/CloseButton";
@@ -40,7 +41,6 @@ const LoginPage = () => {
         setIsLoggedIn(false);
       }
       console.log("User:", user);
-      
     });
 
     return () => listen();
@@ -51,7 +51,7 @@ const LoginPage = () => {
   };
 
   const handleCloseLoginForm = () => {
-    setShowLoginForm((prev) => !prev);
+    setShowLoginForm(false);
   };
 
   const handleSubmit = (event) => {
@@ -102,13 +102,15 @@ const LoginPage = () => {
   return (
     <LoginStyled>
       <LoginForm onSubmit={handleSubmit}>
-        <CloseButton onClick={handleCloseLoginForm} />
+        <FormButtonCloseContainer>
+          <CloseButton onClick={handleCloseLoginForm} />
+        </FormButtonCloseContainer>
         <FormTitle>{mode === "login" ? "Login" : "Register"}</FormTitle>
 
         <AlarmMessage>
-          To log in, use the email: <br /> projectm@example.com <br /> and{" "}
-          <br />
-          password: 123456
+          To log in, use the email: <br /> <span>projectm@example.com</span>{" "}
+          <br /> and password: <br />
+          <span>123456</span>
         </AlarmMessage>
         {errorMessage && <AlarmMessage>{errorMessage}</AlarmMessage>}
 

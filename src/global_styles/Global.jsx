@@ -1,7 +1,6 @@
 import styled, { createGlobalStyle } from "styled-components";
 
 export const ContainerStyled = styled.div`
-  /* overflow-y: auto; */
   width: 1500px;
 `;
 

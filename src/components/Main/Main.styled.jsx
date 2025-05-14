@@ -1,4 +1,5 @@
 import styled from "styled-components";
+// import { theme } from "../../global_styles/theme";
 
 export const Container = styled.div``;
 
@@ -110,8 +111,15 @@ export const CountProjectsInState = styled.p`
 `;
 
 export const AddProjectButton = styled.button`
-  width: 1.5rem;
-  height: 1.5rem;
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #5030e5;
+  background-color: #b9aef6;
+  border-radius: 8px;
+  line-height: 100%;
+  font-size: 1.5rem;
+  width: 1.5rem; */
 `;
 
 export const AddProjectButtonImg = styled.img``;

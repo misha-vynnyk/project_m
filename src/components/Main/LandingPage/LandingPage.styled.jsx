@@ -7,7 +7,7 @@ export const LandingPageStyled = styled.main`
   margin-top: 5.5rem;
   min-height: 100vh;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  padding: 50px;
+  padding: 3rem;
 
   @media (max-width: ${({ theme }) => theme.mobile}) {
     margin-top: 4rem;
@@ -20,7 +20,7 @@ export const LandingPageStyled = styled.main`
 
 export const HeroSection = styled.section`
   display: flex;
-  justify-content: space-between;
+  max-width: 1280px;
 
   @media (max-width: ${({ theme }) => theme.tablet}) {
     display: block;
@@ -28,10 +28,11 @@ export const HeroSection = styled.section`
   }
 `;
 
-export const GetStartedStyled = styled.section`
-  max-width: 540px;
+export const GetStartedStyled = styled.div`
+  margin-right: 2rem;
 
   @media (max-width: ${({ theme }) => theme.tablet}) {
+    margin-right: 0;
     margin-bottom: 30px;
   }
 `;
@@ -58,12 +59,11 @@ export const HeroButtonStyled = styled(Button)`
   background-color: #000000;
 `;
 
-export const ImageStyled = styled.section`
-  right: 0;
+export const ImageStyled = styled.div`
 `;
 
 export const ImgStyled = styled.img`
-  width: 700px;
-  height: 400px;
+  max-width: 100%;
+  height: auto;
   border-radius: 0.5rem;
 `;
