@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../../../firebase/firebase";
 import initialData from "../../../../data/initial-data";
 import {
   AddProjectButton,
@@ -29,13 +31,53 @@ import {
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { ProjectTasksStyled } from "./ProjectTasks.styled";
 import EntityForm from "../../../Forms/EntityForm/EntityForm";
+import { getTasks } from "../../../../firebase/firestore/getTasks";
+
+const TaskLists = () => {
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const data = await getTasks();
+      setTasks(data);
+    };
+
+    fetchTasks();
+  }, [tasks]);
+
+  return (
+    <ul>
+      {tasks.map((task) => (
+        <li key={task.id}>
+          <strong>{task.title}</strong> - {task.status}
+        </li>
+      ))}
+    </ul>
+  );
+};
 
 const ProjectTasks = () => {
   const [initialDataArray, setInitialDataArray] = useState(initialData);
   const [newTaskFormIsOpen, setNewTaskIsOpen] = useState(false);
 
-  const handleOpenForm = () => {
-    setNewTaskIsOpen((prev) => !prev);
+  const newProjectFormData = {
+    formTitle: "Add Task to Project",
+    taskTitle: "Task Title",
+    description: "Description",
+    priority: "Priority",
+    status: "Status",
+    attachFiles: "Attach Files",
+    addTask: "Add Task",
+  };
+
+  const handleAddTask = async (formData) => {
+    try {
+      const docRef = await addDoc(collection(db, "tasks"), formData);
+      console.log("Документ створено з ID:", docRef.id);
+    } catch (e) {
+      console.error("Помилка при додаванні документа:", e);
+    }
+    console.log(formData);
   };
 
   const moveTaskBetweenColumns = (
@@ -116,8 +158,15 @@ const ProjectTasks = () => {
   };
   return (
     <ProjectTasksStyled>
+      <TaskLists></TaskLists>
       <CardStateContainer>
-        {newTaskFormIsOpen && <EntityForm />}
+        {newTaskFormIsOpen && (
+          <EntityForm
+            newProjectFormData={newProjectFormData}
+            setNewTaskIsOpen={setNewTaskIsOpen}
+            onSubmit={handleAddTask}
+          />
+        )}
         <DragDropContext onDragEnd={onDragEnd}>
           {initialDataArray.columnOrder.map((columnId) => {
             const column = initialDataArray.columns[columnId];
@@ -140,7 +189,7 @@ const ProjectTasks = () => {
                       aria-label="Create new project"
                     >
                       <AddProjectButtonImg
-                        onClick={handleOpenForm}
+                        onClick={() => setNewTaskIsOpen(true)}
                         src="icon/add-square_icon.svg"
                         aria-hidden="true"
                       />

@@ -50,10 +50,6 @@ const LoginPage = () => {
     setMode((prevMode) => (prevMode === "login" ? "register" : "login"));
   };
 
-  const handleCloseLoginForm = () => {
-    setShowLoginForm(false);
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -103,7 +99,7 @@ const LoginPage = () => {
     <LoginStyled>
       <LoginForm onSubmit={handleSubmit}>
         <FormButtonCloseContainer>
-          <CloseButton onClick={handleCloseLoginForm} />
+          <CloseButton onClick={() => setShowLoginForm(false)} />
         </FormButtonCloseContainer>
         <FormTitle>{mode === "login" ? "Login" : "Register"}</FormTitle>
 

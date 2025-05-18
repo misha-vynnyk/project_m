@@ -5,13 +5,8 @@ export const Container = styled.div`
 `;
 
 export const EntityFormStyled = styled.div`
-  display: flex;
   position: absolute;
-  gap: 32px;
-  padding: 32px;
-  max-width: 1200px;
-  margin: 0 auto;
-  flex-wrap: wrap;
+  width: 400px;
   z-index: 999;
 `;
 
