@@ -19,7 +19,7 @@ type ProjectFormTextType = {
   formTitle: string;
   taskTitle: string;
   description: string;
-  priority: string;
+  level: string;
   status: string;
   attachFiles: string;
   addTask: string;
@@ -32,9 +32,9 @@ type EntityFormProps = {
 };
 
 type FormType = {
-  title: string;
+  content: string;
   description: string;
-  priority: string;
+  level: string;
   status: string;
 };
 
@@ -45,16 +45,16 @@ const EntityForm: FC<EntityFormProps> = ({
     formTitle,
     taskTitle,
     description,
-    priority,
+    level,
     status,
     attachFiles,
     addTask,
   },
 }) => {
   const [formDataProject, setFormDataProject] = useState<FormType>({
-    title: "",
+    content: "",
     description: "",
-    priority: "",
+    level: "",
     status: "",
   });
 
@@ -70,11 +70,11 @@ const EntityForm: FC<EntityFormProps> = ({
         <FormTitleStyled>{formTitle}</FormTitleStyled>
         <LabelStyled>{taskTitle}</LabelStyled>
         <InputStyled
-          value={formDataProject.title}
+          value={formDataProject.content}
           type="text"
           placeholder="e.g. Brainstorming Session"
           onChange={(e) =>
-            setFormDataProject((prev) => ({ ...prev, title: e.target.value }))
+            setFormDataProject((prev) => ({ ...prev, content: e.target.value }))
           }
         />
         <LabelStyled>{description}</LabelStyled>
@@ -91,13 +91,13 @@ const EntityForm: FC<EntityFormProps> = ({
 
         <SelectContainerStyled>
           <Container>
-            <LabelStyled>{priority}</LabelStyled>
+            <LabelStyled>{level}</LabelStyled>
             <SelectStyled
-              value={formDataProject.priority}
+              value={formDataProject.level}
               onChange={(e) =>
                 setFormDataProject((prev) => ({
                   ...prev,
-                  priority: e.target.value,
+                  level: e.target.value,
                 }))
               }
             >
