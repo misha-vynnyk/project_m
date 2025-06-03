@@ -37,13 +37,17 @@ import {
 } from "../../../../firebase/firestore/updateData";
 import { getDataById } from "../../../../firebase/firestore/getData";
 import { useDeleteData } from "../../../../firebase/firestore/deleteData";
+import { tasksVariable } from "../../../../global_styles/theme";
 // import { doc, setDoc } from "firebase/firestore";
 // import initialData from "../../../../data/initial-data";
 // import { db } from "../../../../firebase/firebase";
 
+const projectName = "projects";
+const projectId = "project-5";
+
 // export const uploadInitialData = async () => {
 //   try {
-//     const docRef = doc(db, "projects", "project-2"); // "boards" — колекція, "board-1" — ID документу
+//     const docRef = doc(db, "projects", "project-5"); // "boards" — колекція, "board-1" — ID документу
 //     await setDoc(docRef, initialData);
 //     console.log("✅ Дані успішно завантажено в Firestore");
 //   } catch (error) {
@@ -72,8 +76,8 @@ const ProjectTasks = () => {
 
   const loadTasks = async () => {
     const taskData = await getDataById({
-      collectionName: "projects",
-      docId: "project-1",
+      collectionName: projectName,
+      docId: projectId,
     });
 
     setInitialDataArray(taskData);
@@ -109,8 +113,8 @@ const ProjectTasks = () => {
     }));
 
     await updateData({
-      collectionName: "projects",
-      docId: "project-1", // or your projectId
+      collectionName: projectName,
+      docId: projectId, // or your projectId
       updatedData: {
         [`tasks.${newId}`]: newTask,
         [`columns.${columnId}.taskIds`]: [
@@ -126,7 +130,7 @@ const ProjectTasks = () => {
 
     try {
       const updatedTaskIds = await deleteData({
-        projectId: "project-1",
+        projectId: projectId,
         taskId,
         columnId,
         currentTaskIds: initialDataArray.columns[columnId].taskIds,
@@ -226,7 +230,7 @@ const ProjectTasks = () => {
 
       // Update Firestore
       await updateTaskOrderInFirestore({
-        projectId: "project-1", // Change for your projectId
+        projectId: projectId, // Change for your projectId
         updatedStartColumn: updatedColumn,
         updatedFinishColumn: updatedColumn,
       });
@@ -252,7 +256,7 @@ const ProjectTasks = () => {
 
       // Update Firestore
       await updateTaskOrderInFirestore({
-        projectId: "project-1", // Change for your projectId
+        projectId: projectId, // Change for your projectId
         updatedStartColumn,
         updatedFinishColumn,
       });
@@ -305,103 +309,133 @@ const ProjectTasks = () => {
                         ref={provided.innerRef}
                         {...provided.droppableProps}
                       >
-                        {tasks.map((task, index) => (
-                          <Draggable
-                            draggableId={task.id}
-                            key={task.id}
-                            index={index}
-                          >
-                            {(provided) => (
-                              <ProjectsCard
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                ref={provided.innerRef}
-                              >
-                                <ProjectHeaderContainer>
-                                  <ProjectLevel
-                                    aria-label="Project level"
-                                    $levelColor={task.levelColor}
-                                    $levelBg={task.levelBackgroundColor}
-                                  >
-                                    {task.level}
-                                  </ProjectLevel>
-                                  <TaskMenu
-                                    role="button"
-                                    onClick={() => handleOpenMenuTask(task.id)}
-                                  >
-                                    <IconTaskMenu
-                                      src="icon/dots_icon.svg"
-                                      alt="Menu"
-                                    />
-                                  </TaskMenu>
-                                  <TaskPupUp
-                                    $taskMenuIsOpen={taskMenuIsOpen}
-                                    $taskId={task.id}
-                                  >
-                                    <TaskButton>
-                                      <TaskMenuIcon src="icon/pen_icon.png" />
-                                      Edit Task
-                                    </TaskButton>
-                                    <TaskButton
+                        {tasks.map((task, index) => {
+                          const levelMap = {
+                            low: {
+                              color: tasksVariable.levelColorRed,
+                              background: tasksVariable.levelBackgroundColorRed,
+                            },
+                            medium: {
+                              color: tasksVariable.levelColorOrange,
+                              background:
+                                tasksVariable.levelBackgroundColorOrange,
+                            },
+                            high: {
+                              color: tasksVariable.levelColorBlue,
+                              background:
+                                tasksVariable.levelBackgroundColorBlue,
+                            },
+                            completed: {
+                              color: tasksVariable.levelColorGreen,
+                              background:
+                                tasksVariable.levelBackgroundColorGreen,
+                            },
+                          };
+
+                          const {
+                            color: statusColor = "",
+                            background: backgroundStatusColor = "",
+                          } = levelMap[task.level] || {};
+                          return (
+                            <Draggable
+                              draggableId={task.id}
+                              key={task.id}
+                              index={index}
+                            >
+                              {(provided) => (
+                                <ProjectsCard
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                  ref={provided.innerRef}
+                                >
+                                  <ProjectHeaderContainer>
+                                    <ProjectLevel
+                                      aria-label="Project level"
+                                      $levelColor={statusColor}
+                                      $levelBg={backgroundStatusColor}
+                                    >
+                                      {task.level}
+                                    </ProjectLevel>
+                                    <TaskMenu
+                                      role="button"
                                       onClick={() =>
-                                        handleDeleteTask(task.id, columnId)
+                                        handleOpenMenuTask(task.id)
                                       }
                                     >
-                                      <TaskMenuIcon src="icon/delete_icon.png" />
-                                      Delete Task
-                                    </TaskButton>
-                                    <TaskButton>
-                                      <TaskMenuIcon src="icon/right-arrow_icon.png" />
-                                      Move to Column
-                                    </TaskButton>
-                                  </TaskPupUp>
-                                </ProjectHeaderContainer>
-                                <ProjectDescriptionContainer>
-                                  <ProjectTitle>{task.content}</ProjectTitle>
-                                  {task?.image ? (
-                                    <Container>
-                                      <ProjectImage
-                                        src={task.image}
-                                        alt={task.content || "Project image"}
+                                      <IconTaskMenu
+                                        src="icon/dots_icon.svg"
+                                        alt="Menu"
                                       />
-                                    </Container>
-                                  ) : (
-                                    <ProjectDescription>
-                                      {task.description ||
-                                        "No Description Available"}
-                                    </ProjectDescription>
-                                  )}
-                                </ProjectDescriptionContainer>
+                                    </TaskMenu>
+                                    <TaskPupUp
+                                      $taskMenuIsOpen={taskMenuIsOpen}
+                                      $taskId={task.id}
+                                    >
+                                      <TaskButton>
+                                        <TaskMenuIcon src="icon/pen_icon.png" />
+                                        Edit Task
+                                      </TaskButton>
+                                      <TaskButton
+                                        onClick={() =>
+                                          handleDeleteTask(task.id, columnId)
+                                        }
+                                      >
+                                        <TaskMenuIcon src="icon/delete_icon.png" />
+                                        Delete Task
+                                      </TaskButton>
+                                      <TaskButton>
+                                        <TaskMenuIcon src="icon/right-arrow_icon.png" />
+                                        Move to Column
+                                      </TaskButton>
+                                    </TaskPupUp>
+                                  </ProjectHeaderContainer>
+                                  <ProjectDescriptionContainer>
+                                    <ProjectTitle>{task.content}</ProjectTitle>
+                                    {task?.image ? (
+                                      <Container>
+                                        <ProjectImage
+                                          src={task.image}
+                                          alt={task.content || "Project image"}
+                                        />
+                                      </Container>
+                                    ) : (
+                                      <ProjectDescription>
+                                        {task.description ||
+                                          "No Description Available"}
+                                      </ProjectDescription>
+                                    )}
+                                  </ProjectDescriptionContainer>
 
-                                <ProjectFooterContainer>
-                                  <ProjectFooterPeople>
-                                    <img
-                                      src="image/Group 633.png"
-                                      alt="Persons"
-                                    />
-                                  </ProjectFooterPeople>
-                                  <ProjectFooterInfoContainer>
-                                    <ProjectFooterComments>
+                                  <ProjectFooterContainer>
+                                    <ProjectFooterPeople>
                                       <img
-                                        src="icon/comments_icon.svg"
-                                        alt="Comments"
+                                        src="image/Group 633.png"
+                                        alt="Persons"
                                       />
-                                      10 comments
-                                    </ProjectFooterComments>
+                                    </ProjectFooterPeople>
+                                    <ProjectFooterInfoContainer>
+                                      <ProjectFooterComments>
+                                        <img
+                                          src="icon/comments_icon.svg"
+                                          alt="Comments"
+                                        />
+                                        10 comments
+                                      </ProjectFooterComments>
 
-                                    <ProjectFooterCountFiles>
-                                      <img
-                                        src="icon/folder_icon.svg"
-                                        alt="Folder"
-                                      />
-                                      3 files
-                                    </ProjectFooterCountFiles>
-                                  </ProjectFooterInfoContainer>
-                                </ProjectFooterContainer>
-                              </ProjectsCard>
-                            )}
-                          </Draggable>
-                        ))}
+                                      <ProjectFooterCountFiles>
+                                        <img
+                                          src="icon/folder_icon.svg"
+                                          alt="Folder"
+                                        />
+                                        3 files
+                                      </ProjectFooterCountFiles>
+                                    </ProjectFooterInfoContainer>
+                                  </ProjectFooterContainer>
+                                </ProjectsCard>
+                              )}
+                            </Draggable>
+                          );
+                        })}
                         {provided.placeholder}
                         {column.taskIds.length === 0 && (
                           <DropInfo

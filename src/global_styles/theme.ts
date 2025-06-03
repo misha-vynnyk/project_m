@@ -20,6 +20,7 @@ export const theme = {
     primaryDarkBackground: "#0D062D",
     secondaryDarkBackground: "#E0E0E0",
     hoverBackground: "rgba(80, 48, 229, 0.08)",
+    activeColorBackground: "#ffd5d5",
 
     borderLineColor: "1px solid rgb(219, 219, 219)",
 
@@ -30,3 +31,26 @@ export const theme = {
     lightText: "#625F6D",
   },
 } as const;
+
+export interface tasksVariableType {
+  levelBackgroundColorOrange: string;
+  levelBackgroundColorGreen: string;
+  levelBackgroundColorBlue: string;
+  levelBackgroundColorRed: string;
+  levelColorOrange: string;
+  levelColorGreen: string;
+  levelColorBlue: string;
+  levelColorRed: string;
+}
+
+export const tasksVariable: tasksVariableType = {
+  levelBackgroundColorOrange: "rgba(223, 168, 116, 0.2)",
+  levelBackgroundColorGreen: "rgba(139, 196, 138, 0.2)",
+  levelBackgroundColorBlue: "rgba(80, 48, 229, 0.2)",
+  levelBackgroundColorRed: "rgba(234, 88, 88, 0.2)",
+
+  levelColorOrange: "#D58D49",
+  levelColorGreen: "#8BC48A",
+  levelColorBlue: "#5030E5",
+  levelColorRed: "#d54747",
+};

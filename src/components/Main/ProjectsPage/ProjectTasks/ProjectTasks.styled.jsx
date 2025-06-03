@@ -2,7 +2,11 @@ import styled from "styled-components";
 import { theme } from "../../../../global_styles/theme";
 
 export const ProjectTasksStyled = styled.div``;
-export const Container = styled.div``;
+export const Container = styled.div`
+  @media (max-width: ${theme.mobileL}) {
+    display: none;
+  }
+`;
 
 export const CardStateContainer = styled.div`
   display: grid;
@@ -100,6 +104,10 @@ export const ProjectsCard = styled.div`
   border-radius: 16px;
 
   background: ${({ theme }) => theme.colors.primaryLightBackground};
+
+  @media (max-width: ${theme.mobile}) {
+    padding: 0.8rem;
+  }
 `;
 
 export const ProjectHeaderContainer = styled.div`
@@ -145,7 +153,8 @@ export const TaskPupUp = styled.div`
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  display: ${({ $taskMenuIsOpen, $taskId }) => ($taskMenuIsOpen === $taskId ? "flex" : "none")};
+  display: ${({ $taskMenuIsOpen, $taskId }) =>
+    $taskMenuIsOpen === $taskId ? "flex" : "none"};
 `;
 
 export const TaskButton = styled.button`
@@ -157,11 +166,11 @@ export const TaskButton = styled.button`
   transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: #ffeaea;
+    background-color: ${theme.colors.hoverBackground};
   }
 
   &:active {
-    background-color: #ffd5d5;
+    background-color: ${theme.colors.activeColorBackground};
   }
   cursor: pointer;
 `;
@@ -194,6 +203,10 @@ export const ProjectDescription = styled.p`
   font-size: 0.87rem;
   font-weight: 400;
   text-align: left;
+
+  @media (max-width: ${theme.mobileL}) {
+    margin-bottom: 0.2rem;
+  }
 `;
 
 export const ProjectImage = styled.img`
@@ -208,11 +221,14 @@ export const ProjectFooterContainer = styled.div`
 export const ProjectFooterPeople = styled.div`
   width: 63px;
   height: 24px;
+
+  @media (max-width: ${theme.mobileL}) {
+    display: none;
+  }
 `;
 export const ProjectFooterInfoContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 1.5rem;
 `;
 
 export const ProjectFooterComments = styled.div`
