@@ -40,7 +40,6 @@ const LoginPage = () => {
         setLoggedUser(null);
         setIsLoggedIn(false);
       }
-      console.log("User:", user);
     });
 
     return () => listen();
@@ -82,7 +81,7 @@ const LoginPage = () => {
             setIsLoggedIn(true);
             setShowLoginForm(false);
           })
-          .catch((error) => setErrorMessage(error));
+          .catch((error) => setErrorMessage(error.message));
         break;
     }
   };

@@ -234,3 +234,16 @@ export const ProjectFooterCountFiles = styled.div`
 export const DropInfo = styled.div`
   height: 100%;
 `;
+
+export const FeedbackBanner = styled.div`
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  font-family: ${({ theme }) => theme.fonts.primaryFont};
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  color: ${({ $type }) => ($type === "error" ? "#B42318" : "#027A48")};
+  background-color: ${({ $type }) =>
+    $type === "error" ? "rgba(240, 68, 56, 0.1)" : "rgba(18, 183, 106, 0.1)"};
+`;

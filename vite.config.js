@@ -8,6 +8,6 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: "./src/components/LoginPage/LoginPage.test.jsx",
+    setupFiles: "./src/setupTests.ts",
   },
 });

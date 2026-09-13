@@ -8,6 +8,7 @@ export const updateData = async ({ collectionName, docId, updatedData }) => {
     console.log(`✅ Документ у '${collectionName}' оновлено (ID: ${docId})`);
   } catch (error) {
     console.error("❌ Помилка при оновленні документа:", error);
+    throw error;
   }
 };
 

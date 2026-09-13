@@ -2,11 +2,11 @@ import { createContext } from "react";
 
 export const LoginContext = createContext({
   isLoggedIn: false,
-  setIsLoggedIn: () => { },
+  setIsLoggedIn: () => {},
   showLoginForm: false,
-  setShowLoginForm: () => { },
+  setShowLoginForm: () => {},
   mode: "login",
-  setMode: () => { },
+  setMode: () => {},
   loggedUser: null,
-  setLoggedUser: () => { },
+  setLoggedUser: () => {},
 });

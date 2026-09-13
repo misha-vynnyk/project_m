@@ -50,8 +50,7 @@ const userInfo = [
 
 export const UserBlock = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const { setIsLoggedIn, loggedUser, setShowLoginForm } =
-    useContext(LoginContext);
+  const { setIsLoggedIn, setShowLoginForm } = useContext(LoginContext);
 
   const handleUserMenuOpen = () => {
     setIsUserMenuOpen((prevState) => !prevState);
@@ -66,8 +65,6 @@ export const UserBlock = () => {
       })
       .catch((error) => console.log(error));
   };
-
-  console.log("User:", loggedUser);
 
   return (
     <UserBlockContainer role="region" aria-label="User menu block">

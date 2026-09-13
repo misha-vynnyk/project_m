@@ -7,6 +7,7 @@ import {
   Container,
   CountProjectsInState,
   DropInfo,
+  FeedbackBanner,
   IconTaskMenu,
   ProjectDescription,
   ProjectDescriptionContainer,
@@ -28,7 +29,7 @@ import {
   TitleCardState,
   TitleStateWrapper,
 } from "./ProjectTasks.styled";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { ProjectTasksStyled } from "./ProjectTasks.styled";
 import EntityForm from "../../../Forms/EntityForm/EntityForm";
 import {
@@ -58,7 +59,14 @@ const ProjectTasks = () => {
   const [newTaskFormIsOpen, setNewTaskIsOpen] = useState(false);
 
   const [taskMenuIsOpen, setTaskMenuIsOpen] = useState(null);
+  const [feedback, setFeedback] = useState(null);
   const { deleteData } = useDeleteData();
+
+  useEffect(() => {
+    if (!feedback) return;
+    const timeoutId = setTimeout(() => setFeedback(null), 3000);
+    return () => clearTimeout(timeoutId);
+  }, [feedback]);
 
   const newProjectFormData = {
     formTitle: "Add Task to Project",
@@ -85,40 +93,40 @@ const ProjectTasks = () => {
   }, []);
   // console.log("initialArray:", initialDataArray);
 
+  const statusToColumnId = {
+    "To Do": "column-1",
+    "In Progress": "column-2",
+    Done: "column-3",
+  };
+
   const addTask = async (data) => {
-    const newId = `task-${Object.keys(initialDataArray.tasks).length + 1}`;
-    const columnId = "column-1";
+    const newId = `task-${crypto.randomUUID()}`;
+    const columnId = statusToColumnId[data.status] || "column-1";
     const newTask = {
       id: newId,
       ...data,
     };
 
-    setInitialDataArray((prev) => ({
-      ...prev,
-      tasks: {
-        ...prev.tasks,
-        [newId]: newTask,
-      },
-      colums: {
-        ...prev.colums,
-        [columnId]: {
-          ...prev.columns[columnId],
-          taskIds: [...prev.columns[columnId].taskIds],
+    try {
+      await updateData({
+        collectionName: "projects",
+        docId: "project-1", // or your projectId
+        updatedData: {
+          [`tasks.${newId}`]: newTask,
+          [`columns.${columnId}.taskIds`]: [
+            ...initialDataArray.columns[columnId].taskIds,
+            newId,
+          ],
         },
-      },
-    }));
-
-    await updateData({
-      collectionName: "projects",
-      docId: "project-1", // or your projectId
-      updatedData: {
-        [`tasks.${newId}`]: newTask,
-        [`columns.${columnId}.taskIds`]: [
-          ...initialDataArray.columns[columnId].taskIds,
-          newId,
-        ],
-      },
-    }).finally(loadTasks());
+      });
+      setNewTaskIsOpen(false);
+      setFeedback({ type: "success", text: "Task added successfully" });
+    } catch (error) {
+      console.error("Failed to add task:", error);
+      setFeedback({ type: "error", text: "Failed to add task" });
+    } finally {
+      loadTasks();
+    }
   };
 
   const deleteTask = async (taskId, columnId) => {
@@ -150,7 +158,8 @@ const ProjectTasks = () => {
         };
       });
     } catch (error) {
-      console.error("Не вдалося видалити таску:", error);
+      console.error("Failed to delete task:", error);
+      setFeedback({ type: "error", text: "Failed to delete task" });
     }
   };
 
@@ -260,6 +269,11 @@ const ProjectTasks = () => {
   };
   return (
     <ProjectTasksStyled>
+      {feedback && (
+        <FeedbackBanner $type={feedback.type} role="status">
+          {feedback.text}
+        </FeedbackBanner>
+      )}
       <CardStateContainer>
         {newTaskFormIsOpen && (
           <EntityForm
