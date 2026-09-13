@@ -353,7 +353,7 @@ const ProjectTasks = () => {
                                     $taskId={task.id}
                                   >
                                     <TaskButton>
-                                      <TaskMenuIcon src="./public/icon/pen_icon.png" />
+                                      <TaskMenuIcon src="/icon/pen_icon.png" />
                                       Edit Task
                                     </TaskButton>
                                     <TaskButton
@@ -361,11 +361,11 @@ const ProjectTasks = () => {
                                         handleDeleteTask(task.id, columnId)
                                       }
                                     >
-                                      <TaskMenuIcon src="./public/icon/delete_icon.png" />
+                                      <TaskMenuIcon src="/icon/delete_icon.png" />
                                       Delete Task
                                     </TaskButton>
                                     <TaskButton>
-                                      <TaskMenuIcon src="./public/icon/right-arrow_icon.png" />
+                                      <TaskMenuIcon src="/icon/right-arrow_icon.png" />
                                       Move to Column
                                     </TaskButton>
                                   </TaskPupUp>
